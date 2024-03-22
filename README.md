@@ -1,6 +1,10 @@
 # Natural language processing course 2023/24: `Conversations with Characters in Stories for Literacy`
 ## About
 This is **Project 7** of the Natural Language Processing course in year 2023/2024 where we aim to tackle the problem of decreasing literacy skills of younger generations via quick and customized **Persona** bots from novels.
+## Team
+* Žan Kogovšek
+* Žiga Drab
+* Vid Cesar
 ## Repository structure
 ```
 ├── LICENSE            <- Standard license file
