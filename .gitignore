@@ -130,3 +130,15 @@ dmypy.json
 
 # MacOS file
 .DS_Store
+
+# Data Raw
+data/raw/
+
+# Cache
+cache/
+
+# Containers
+containers/*.sif
+
+# Models
+models/faiss
