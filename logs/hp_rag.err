@@ -1,7 +1,0 @@
-INFO:    Setting 'NVIDIA_VISIBLE_DEVICES=all' to emulate legacy GPU binding.
-INFO:    Setting --writable-tmpfs (required by nvidia-container-cli)
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:45<00:45, 45.09s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:04<00:00, 29.82s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:04<00:00, 32.11s/it]
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Setting `pad_token_id` to `eos_token_id`:32000 for open-end generation.
-A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.

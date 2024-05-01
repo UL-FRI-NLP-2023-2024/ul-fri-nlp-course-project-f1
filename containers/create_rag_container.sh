@@ -12,3 +12,4 @@ singularity exec containers/container-rag.sif pip install InstructorEmbedding
 singularity exec containers/container-rag.sif pip install sentence-transformers
 singularity exec containers/container-rag.sif pip install faiss-gpu
 singularity exec containers/container-rag.sif pip install rank_bm25
+singularity exec containers/container-rag.sif pip install openai
