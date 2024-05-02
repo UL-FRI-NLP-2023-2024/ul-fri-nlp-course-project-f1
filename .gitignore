@@ -143,8 +143,9 @@ containers/*.sif
 # Models
 models/faiss
 
-# Secrets should not pushed to remote GIT repository
+# Secrets and raw data should not pushed to remote GIT repository
 src/models/utils/secrets.py
+src/models/data/raw/*.pdf
 
 # Logs
 logs/

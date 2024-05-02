@@ -65,7 +65,11 @@ Before running our models we must make sure all the pre-requisites are met.
 
 For the Retrieval Augmented Generation (RAG) model we need PDFs of all the Harry Potter books and place them under `data/raw`.
 
-The data we used is available to download from Kaggle: https://www.kaggle.com/datasets/icecubical/harry-potter-book-set?resource=download
+The data we used is available to download from Kaggle: https://www.kaggle.com/datasets/icecubical/harry-potter-book-set?resource=download. We uploaded it to a shared Google drive folder for easier download. It can be downloaded using Makefile.
+
+```bash
+make download_data
+```
 
 The books should be named `harry_potter_book-N.pdf` where N is the number of the book (i.e. harry_potter_book-1.pdf for Harry Potter and the Philosopher's Stone).
 
