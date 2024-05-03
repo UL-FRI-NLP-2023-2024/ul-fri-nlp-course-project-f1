@@ -149,3 +149,6 @@ src/models/data/raw/*.pdf
 
 # Logs
 logs/
+models/faiss/
+models/peft-final/
+models/peft-hp-dialogue-training/
