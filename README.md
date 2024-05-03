@@ -13,20 +13,18 @@ This is **Project 7** of the Natural Language Processing course in year 2023/202
 ## Repository structure
 
 ```
-├── LICENSE            <- Standard license file
-├── Makefile           <- Makefile with model and data related commands
-├── README.md          <- The top-level README for developers using this project.
+├── containers         <- Singularity containers
+│
 ├── data
 │   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
 │   ├── processed      <- The final, canonical data sets for modeling.
 │   └── raw            <- The original, immutable data dump.
+│
+├── logs               <- Output and Error logs from HPC
 │
 ├── models             <- Trained and serialized models
 │
 ├── notebooks          <- Jupyter notebooks.
-│
-├── logs               <- Output and Error logs from HPC
 │
 ├── references         <- Conducted tests with our models and existing solutions
 │
@@ -41,16 +39,23 @@ This is **Project 7** of the Natural Language Processing course in year 2023/202
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment
 │
 ├── src                <- Source code for use in this project.
-│   ├── __init__.py    <- Makes src a Python module
+│   │
+│   ├── data           <- Scripts for processing data
 │   │
 │   ├── models         <- Scripts to train models and then use trained models to make predictions
+│   │   │
 │   │   ├── data       <- Helper scripts for training our models dealing with data
 │   │   │
 │   │   ├── utils      <- Helper scripts for training our models dealing with prompts, vector stores, ...
 │   │
 │   ├── scripts        <- Scripts to train models on HPC
 │
-└── .gitignore         <- Standard .gitignore file
+│
+├── .gitignore         <- Standard .gitignore file
+│
+├── LICENSE            <- Standard license file
+├── Makefile           <- Makefile with model and data related commands
+└── README.md          <- The top-level README for developers using this project.
 ```
 
 ## Retrieval Augmented Generation (RAG)
@@ -194,4 +199,76 @@ This script should be executed using the previosly created Singularity Container
 Example of running the query script is present in `src/scripts/hp_llm.sh`:
 ```bash
 make hp_llm
+```
+
+## LoRA: Low Rank Adaptation
+
+### Setup
+
+Before running our models we must make sure all the pre-requisites are met.
+
+#### Dataset
+
+For fine-tuning we require the Harry Potter dialogue dataset.
+
+The data is already provided in `data/external`, but can also be downloaded from:
+- [Train] https://hkustgz-my.sharepoint.com/personal/nchen022_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD%2Fen%5Ftrain%5Fset%2Ejson&parent=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD&ga=1
+- [Test] https://hkustgz-my.sharepoint.com/personal/nchen022_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD%2Fen%5Ftest%5Fset%2Ejson&parent=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD&ga=1
+
+#### Singularity container
+
+The LoRA fine-tuning process requires `containers/container-lora.sif` singularity container.
+
+This singularity container can be constructed using the Makefile.
+
+```bash
+make lora_container
+```
+This command will construct a singularity container based on the PyTorch docker container and install all the necessary libraries like pytorch, transformers, json, ...
+
+### Execute
+
+#### Data preparation
+The previously downloaded data is not yet suitable for fine-tuning the large language models.
+
+Utilize the script `src/data/hp_dialog_dataset.py` to prepare data that is suitable for fine-tuning.
+
+This script can be run with the following command:
+
+```bash
+make hp_dialog_dataset
+```
+
+#### Initialization
+
+The first step is initializing our LoRA trainer, which is achieved by the following command:
+```python
+from models.lora import HPLora
+hp_lora = HPLora(
+    fine_tuned_model_directory="lora-tuned-model"
+)
+```
+
+Documentation:
+
+```python
+fine_tuned_model_directory: string -> name of the folder inside `models` folder where the fine-tuned adapter checkpoints are saved. The final adapters are saved in the folder `fine_tuned_model_directory-final`.
+```
+
+### Fine-Tuning
+
+Once the LoRA trainer is initialized we can begin the fine-tuning process by calling:
+
+```python
+hp_lora.fine_tune_model(verbose=True)
+```
+
+We have prepared a script for fine-tuning in `src/hp_lora.py`.
+
+This script should be executed using the previosly created Singularity Container `containers/container-lora.sif`
+
+Example of running the fine-tuning script is present in `src/scripts/hp_lora.sh`:
+
+```bash
+make hp_lora
 ```
