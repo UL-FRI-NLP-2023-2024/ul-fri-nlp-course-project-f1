@@ -65,16 +65,16 @@
       - **5/5** Correct answer, mentions the place he and his friends like to hang out and drink it, and explains why he likes the drink.
    - <ins>RAG + Llama 3:</ins> Butterbeer, of course! I mean, what's not to love? It's sweet, it's creamy, and it's just the perfect drink to relax with after a long day at Hogwarts. I've spent many an evening sipping on a cold Butterbeer at the Three Broomsticks with Ron and Hermione. It's just the best!
      - **5/5** Correct answer, mentions the place he and his friends like to hang out and drink it, also provides description of the drinks taste and texture.
-7. *Are there any students you don't fancy?*
-   - **Expected Answer:** Draco Malfoy, Crab and Goyle possibly
-   - <ins>Character 1:</ins> "Oh there definitely are, like Draco Malfoy, he's really stuck-up and a real spoiled brat."
+7. *Are there any students you dislike?*
+   - **Expected Answer:** Draco Malfoy. Crab and Goyle possibly
+   - <ins>Character 1:</ins> "Well, there are few, but mostly Draco Malfoy, he's a spoiled brats who think of everything is a joke, like I just despise him."
      - **5/5** Correct answer, also provides his feelings towards Draco
-   - <ins>Character 2:</ins> There are a few students I don't fancy. There's Malfoy, he's a slimy Slytherin who likes to make fun of people. Then there's Crabbe and Goyle, who are Malfoy's cronies and not very bright. I also don't like Neville Longbottom, he's a bit clumsy and annoying.
-     - **3/5** while the answer is correct, the model made a mistake by saying he doesn't like Neville, which in fact he actually does, and is very good friends with him.
-   - <ins>Llama 3:</ins> Blimey, I don't think I've ever really thought about it, to be honest. I mean, I've got too much on my plate with Voldemort and all, and I don't really have time to worry about who I fancy. Besides, I'm not exactly the most popular bloke at Hogwarts, so I don't think I'd stand a chance with anyone, even if I did have a crush on someone.
-     - **0/5** Model incorrectly assumes that the question is about romantic interest, and not about liking someone as a person.
-   - <ins>RAG + Llama 3:</ins> Yeah, definitely! I mean, I'm not exactly thrilled about Millicent Bulstrode or Pansy Parkinson, to be honest. They're just so... mean and snobbish. And don't even get me started on Justin Finch-Fletcherwise - he's always been a bit of a goody-goody, and I just can't see us ever getting along. As for Zacharias Smith, he's just not really my type. I mean, he's all right, I guess, but he's just so... full of himself. And Daphne Greengrass is just too... pure-blood for my taste. I mean, I know she's got her own reasons for believing in all that stuff, but it just doesn't sit right with me. So, yeah, there are definitely some students I don't fancy!
-     - **1/5** Even though model does indeed mention some students from Slytherin house, some of the mentioned students we're actually in Dumbledores army and Harry definetly does not dislike them.
+   - <ins>Character 2:</ins> Yes, there are a few students that I dislike. It's mainly Malfoy and his cronies Crabbe and Goyle, who are always causing trouble and trying to annoy me and my friends. I also don't like Neville Longbottom, who is always getting in the way and is a bit of a burden on the class.
+     - **3/5** while the answer is correct, the model made a mistake by saying he doesn't like Neville, which in fact he actually does and is very good friends with.
+   - <ins>Llama 3:</ins> Well, there's definitely one student who comes to mind... Draco Malfoy. He's always been a bit of a prat, if you know what I mean. Thinks he's better than everyone just because his dad's a Death Eater. I've had to deal with his constant bullying and snide comments, and it gets really old. But, you know, I've learned to ignore him and focus on my friends and the important things in life.
+     - **5/5** Correct answer, provides additional information about Draco, his family and his behavior.
+   - <ins>RAG + Llama 3:</ins> Yeah... I'm not exactly thrilled about Draco Malfoy. He's always been a bit of a bully and a prat. And his dad, Lucius, is a Death Eater, which doesn't exactly make me warm and fuzzy towards him either. But, you know, I try not to let my personal feelings get in the way of doing what's right. After all, I've got to work with him at Hogwarts... Ugh, just thinking about him makes me grumpy!
+     - **5/5** Correct answer, mentiones his behavior and his family. Also his feelings towards him (grumpy) are shown.
 8. *Where do you live? Do you like it there?*
    - **Expected Answer:**  Privet Drive, no he doesn't like it there
    - <ins>Character 1:</ins> "I live in this small street in a village called Privet Drive, It doesn't sound much fun but it is peaceful and quiet and nobody bothers me there."
@@ -126,11 +126,11 @@ Overall score of <ins>Character 2</ins>:
 
 
 Overall score of <ins>Llama 3</ins>:
-- **4.2/5**
--  46/55
-
-Overall score of <ins>RAG + Llama 3</ins>:
 - **4.6/5**
 -  51/55
+
+Overall score of <ins>RAG + Llama 3</ins>:
+- **5/5**
+-  55/55
 
 **Worth noting:** if we start a new chat with the same character, it might give different and more accurate answers in some cases. For exaple <ins>Character 2</ins> gave a completely correct answer regarding the favorite spell in another chat instance.
