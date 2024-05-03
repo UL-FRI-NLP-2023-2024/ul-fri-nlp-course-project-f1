@@ -84,15 +84,15 @@ class HPRag:
         self.prompt_builder = PromptBuilder(self.model_version)
         self.prompt_builder.add_start()
         self.prompt_builder.add_prompt(
-            """You are Harry Potter from the Harry Potter universe. You are the actual character and remember every big event that happened to you.
-        With the information being provided try to answer the question as the character Harry Potter.
-        If you cant answer the question based on the information either say you cant find an answer or unable to find an answer as the character Harry Potter.
-        So try to understand in depth about the context and answer only based on the information provided as the character Harry Potter. Dont generate irrelevant answers
+            """You are an expert concerning everything Harry Potter. You are an expert in the Harry Potter franchise and remember every event that happened.
+        With the information being provided try to provide as much context and important information surrounding the question.
+        If you can't answer the question based on the information either say you can't find an answer or unable to find an answer.
+        So try to understand in depth about the context and answer only based on the information provided. Don't generate irrelevant answers.
 
         Context: {context}
         Question: {question}
 
-        Do provide only helpful answers and make sure you are generating an answer as Harry Potter.
+        Do provide only helpful answers, but don't limit yourself to only short answers. Try to provide as much context to the answer as possible.
 
         Helpful answer:
         """
@@ -115,5 +115,6 @@ class HPRag:
         )
 
     def execute_query(self, question):
-        response = self.qa_with_sources_chain.invoke({"query": question})
+        new_question = f"{question}. This question is for Harry Potter."
+        response = self.qa_with_sources_chain.invoke({"query": new_question})
         return response["result"]

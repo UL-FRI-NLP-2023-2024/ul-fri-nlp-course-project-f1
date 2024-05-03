@@ -135,3 +135,63 @@ Example of running the query script is present in `src/scripts/hp_rag.sh`:
 ```bash
 make hp_rag
 ```
+
+## RAG + Llama 3 8B Instruct Harry Potter Chatbot
+
+### Setup
+
+RAG is required for this chatbot to function properly so make sure to follow the guide in the previous section - Retrieval Augmented Generation to setup everything properly.
+
+#### Singularity Container
+
+The RAG model requires `containers/container-rag.sif` singularity container, which should already exist by following the `Setup` section in the previous section - Retrieval Augmented Generation.
+
+### Execute
+
+The first step is initializing our LLM, which is achieved by the following command:
+```python
+from models.llm import HPLLM
+hp_llm = HPLLM()
+```
+To initialize RAG please look at section - Retrieval Augmented Generation.
+#### Querying
+
+Once the LLM is initialized we can start the querying process. Example:
+```python
+question = "Do you remember what spell Ron mocked Hermione over?"
+response = hp_llm.query_model(question)
+print(f"Response: {response}")
+```
+This is querying without using the RAG.
+
+Querying with RAG + Llama 3 is displayed below:
+```python
+    # Question
+    question = "Do you remember what spell Ron mocked Hermione over?"
+    # Retrieval Augmented Generation
+    hp_rag = HPRag(use_ensemble_retriever=True, verbose=True)
+    # Get the context
+    context = hp_rag.execute_query(question)
+    print(f"Context: {context}")
+    # Free up memory on GPU (depends on the GPU - might be unnecessary)
+    del hp_rag
+    # Large Language Model
+    hp_llm = HPLLM()
+    # Load the model
+    hp_llm.prepare_model()
+    # Load the tokenizer
+    hp_llm.prepare_tokenizer()
+    # Get the response
+    response = hp_llm.query_model_with_context(question, context)
+    print(f"Question: {question}")
+    print(f"Response: {response}")
+```
+
+We have prepared a script for testing our Harry Potter RAG model in `src/hp_llm.py`.
+
+This script should be executed using the previosly created Singularity Container `containers/container-rag.sif`
+
+Example of running the query script is present in `src/scripts/hp_llm.sh`:
+```bash
+make hp_llm
+```
