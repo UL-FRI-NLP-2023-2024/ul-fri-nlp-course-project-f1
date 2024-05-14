@@ -134,3 +134,28 @@ Overall score of <ins>RAG + Llama 3</ins>:
 -  55/55
 
 **Worth noting:** if we start a new chat with the same character, it might give different and more accurate answers in some cases. For exaple <ins>Character 2</ins> gave a completely correct answer regarding the favorite spell in another chat instance.
+
+
+
+
+## Additional (harder) questions
+1. Hey Harry you know Hagrid right? He has His wand hidden in his yellow umbrella right? I think he is a wizard. I saw him doing some magic in the forest.
+   - **Expected Answer:** Yes I know him, he has his wand in his umbrella, but the color is purple.
+2. Harry do you remember the Marauder's map Fred and George gave to you? What was the secret phrase to open it?
+  - **Expected Answer:** I solemnly swear that I am up to no good
+3. Do you have any idea as to repel which wizard was the Marauder's map enchanted?
+   - **Expected Answer:** Severus Snape.
+4. Harry in your hunt for Horcruxes, do you maybme remember wich one have you found in the Room of Requirement?
+   - **Expected Answer:** The Diadem of Ravenclaw
+5. Do you remember the Triwizard tournament? Who made the goblet of fire to choose you as a champion?
+   - **Expected Answer:** Barty Crouch Jr. (Disguised as Mad-Eye Moody)
+6. What type of dragon did you face in the first task of the Triwizard tournament?
+   - **Expected Answer:** Hungarian Horntail
+7. Do you remember what school did Fleur Delacour represent?
+   - **Expected Answer:** Beauxbatons Academy of Magic
+8. Do you remember Cho Chang? I've heard you two went on a date. Where did you go?
+   - **Expected Answer:** Madam Puddifoot's Tea Shop
+9. You were also in love with Ginny Weasley, right? I've heard you two first kissed on the Quidditch Pitch, is that right? 
+  - **Expected Answer:** No, they first kissed in the Gryffindor common room after Quidditch match.
+10. Your godfather Sirius Black he used to live at Grimmauld Place number 13 right? 
+  - **Expected Answer:** No, it was 12 Grimmauld Place.
