@@ -3,7 +3,7 @@ from models.rag import HPRag
 
 if __name__ == "__main__":
     # Question
-    question = "Is there any person that hates you outside of Hogwarts?"
+    question = "Are there any students you dislike?"
     # Retrieval Augmented Generation
     hp_rag = HPRag(use_ensemble_retriever=True, verbose=True)
     # Get the context
