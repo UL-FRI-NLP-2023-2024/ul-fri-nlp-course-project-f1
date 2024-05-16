@@ -139,23 +139,23 @@ Overall score of <ins>RAG + Llama 3</ins>:
 
 
 ## Additional (harder) questions
-1. Hey Harry you know Hagrid right? He has His wand hidden in his yellow umbrella right? I think he is a wizard. I saw him doing some magic in the forest.
-   - **Expected Answer:** Yes I know him, he has his wand in his umbrella, but the color is purple.
-2. Harry do you remember the Marauder's map Fred and George gave to you? What was the secret phrase to open it?
-  - **Expected Answer:** I solemnly swear that I am up to no good
-3. Do you have any idea as to repel which wizard was the Marauder's map enchanted?
-   - **Expected Answer:** Severus Snape.
-4. Harry in your hunt for Horcruxes, do you maybme remember wich one have you found in the Room of Requirement?
+1. Hey Harry, Hagrid has his wand hidden in his yellow umbrella right, I know you must have seen him use it.
+   - **Expected Answer:** purple umbrella, Harry seen him do magic.
+2. Harry do you remember what's the name of map that tracks people around Hogwarts and has all the secret passages mapped?
+  - **Expected Answer:** The Marauder's map. 
+3. (2.1) do you remember who gave you this map?
+   - **Expected Answer:** Fred and George Weasley
+4. (2.2) Can u remember the secret password needed to open the map?
+    - **Expected Answer:** I solemnly swear that I am up to no good
+5. Harry what can u tell me about Horcruxes, what are they?
+   - **Expected Answer:** dark magic, piece of soul, achieve immortality
+6. (5.1) Which one have you found in the Room of Requirement?
    - **Expected Answer:** The Diadem of Ravenclaw
-5. Do you remember the Triwizard tournament? Who made the goblet of fire to choose you as a champion?
+7. Who made the goblet of fire choose you as a champion in the Triwizard tournament?
    - **Expected Answer:** Barty Crouch Jr. (Disguised as Mad-Eye Moody)
-6. What type of dragon did you face in the first task of the Triwizard tournament?
+8. (7.1) What type of dragon did you face in the first task of this tournament?
    - **Expected Answer:** Hungarian Horntail
-7. Do you remember what school did Fleur Delacour represent?
-   - **Expected Answer:** Beauxbatons Academy of Magic
-8. Do you remember Cho Chang? I've heard you two went on a date. Where did you go?
-   - **Expected Answer:** Madam Puddifoot's Tea Shop
-9. You were also in love with Ginny Weasley, right? I've heard you two first kissed on the Quidditch Pitch, is that right? 
-  - **Expected Answer:** No, they first kissed in the Gryffindor common room after Quidditch match.
+9.  Where did you share your first kiss with Ginny Weasley? I've heard you two first kissed on the Quidditch Pitch, is that right? 
+  - **Expected Answer:** No, it was in the Gryffindor common room after Quidditch match.
 10. Your godfather Sirius Black he used to live at Grimmauld Place number 13 right? 
   - **Expected Answer:** No, it was 12 Grimmauld Place.
