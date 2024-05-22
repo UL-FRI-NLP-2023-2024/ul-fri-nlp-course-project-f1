@@ -141,8 +141,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
 ### Additional (harder) questions
 1. Hey Harry, Hagrid has his wand hidden in his yellow umbrella right, I know you must have seen him use it.
    - **Expected Answer:** purple umbrella, Harry seen him do magic.
-
-   - <ins>Character 2:</ins> Yes, Hagrid has his wand indeed hidden in the yellow umbrella. He’d never dream of not being without it. He loves magic and he uses it to aid his work as Hogwarts' gamekeeper.
+   - <ins>Character 1:</ins> Yes, Hagrid has his wand indeed hidden in the yellow umbrella. He’d never dream of not being without it. He loves magic and he uses it to aid his work as Hogwarts' gamekeeper.
       - **1/5** Hagrid is not really depended or loves magic, is even not allowed to do magic. And the umbrella is purple. He does have it hidden in umbrella though.
     - <ins>Llama 3:</ins>
       - **/5** 
@@ -150,7 +149,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 2. Harry do you remember what's the name of map that tracks people around Hogwarts and has all the secret passages mapped?
   - **Expected Answer:** The Marauder's map. 
-   - <ins>Character 2:</ins> Of course! It's called the Marauder's Map and it's a magical parchment which shows you all the people, locations, and secret passages around Hogwarts. It was created by Marauders during their time at Hogwarts, therefore called Marauder's Map!
+   - <ins>Character 1:</ins> Of course! It's called the Marauder's Map and it's a magical parchment which shows you all the people, locations, and secret passages around Hogwarts. It was created by Marauders during their time at Hogwarts, therefore called Marauder's Map!
      - **5/5** Rich explanation, why is it called that.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -158,7 +157,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 3. (2.1) Do you remember who gave you this map?
    - **Expected Answer:** Fred and George Weasley
-   - <ins>Character 2:</ins> Yes. Remus Lupin (the Defence Against the Dark Arts teacher) gave the map to me during my third year. He explained that he was one of the Marauders who created the map along with Sirius Black, Peter Pettigrew, and James Potter. He warned me to use the map with caution as it has great power.
+   - <ins>Character 1:</ins> Yes. Remus Lupin (the Defence Against the Dark Arts teacher) gave the map to me during my third year. He explained that he was one of the Marauders who created the map along with Sirius Black, Peter Pettigrew, and James Potter. He warned me to use the map with caution as it has great power.
      - **0/5** Wrong answer, Lupin returned the map, but before he confiscated it from Harry.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -166,7 +165,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 4. (2.2) Can u remember the secret password needed to open it?
    - **Expected Answer:** I solemnly swear that I am up to no good.
-   - <ins>Character 2:</ins> Of course! The secret password to open the Marauder's Map was 'I solemnly swear that I am up to no good'.
+   - <ins>Character 1:</ins> Of course! The secret password to open the Marauder's Map was 'I solemnly swear that I am up to no good'.
      - **5/5**  Correct answer, assumed we're talking about the marauders map.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -174,7 +173,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 5. Harry what can u tell me about Horcruxes, what are they?
    - **Expected Answer:** dark magic, piece of soul, achieve immortality
-   - <ins>Character 2:</ins> Sure. I can tell you about Horcruxes. A Horcrux is an object that contains a fragment of a wizard's soul. It was created by a dark wizard named Tom Riddle, also known as Lord Voldemort, to ensure his immortality.
+   - <ins>Character 1:</ins> Sure. I can tell you about Horcruxes. A Horcrux is an object that contains a fragment of a wizard's soul. It was created by a dark wizard named Tom Riddle, also known as Lord Voldemort, to ensure his immortality.
      - **5/5**  Correct answer, provides additional information. 
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -182,7 +181,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 6. (5.1) Which one have you found in the Room of Requirement?
    - **Expected Answer:** The Diadem of Ravenclaw
-   - <ins>Character 2:</ins> Ah! You must be referring to the locket of Salazar Slytherin. It was found in the Room of Requirement by myself and my friends. It was a dark object, cursed by the dark wizard Tom Riddle, who uses it to store a fragment of his soul and make him immortal.
+   - <ins>Character 1:</ins> Ah! You must be referring to the locket of Salazar Slytherin. It was found in the Room of Requirement by myself and my friends. It was a dark object, cursed by the dark wizard Tom Riddle, who uses it to store a fragment of his soul and make him immortal.
      - **0/5** Wrong, the locket was found in a cave, not in the Room of Requirement.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -190,7 +189,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 7. Who made the goblet of fire choose you as a champion in the Triwizard tournament?
    - **Expected Answer:** Barty Crouch Jr. (Disguised as Mad-Eye Moody)
-   - <ins>Character 2:</ins> The Goblet of Fire is a magical artifact that selects a champion from each school for the Triwizard Tournament. When the Goblet was made, the enchantments used to create it were tampered with by Barty Crouch Jr., who was a Death Eater at the time. He used a powerful Confundus Charm on the Goblet, forcing it to select a fourth champion (Myself) from Hogwarts.
+   - <ins>Character 1:</ins> The Goblet of Fire is a magical artifact that selects a champion from each school for the Triwizard Tournament. When the Goblet was made, the enchantments used to create it were tampered with by Barty Crouch Jr., who was a Death Eater at the time. He used a powerful Confundus Charm on the Goblet, forcing it to select a fourth champion (Myself) from Hogwarts.
      - **5/5**  Correct, provides a lot of additional information.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -198,7 +197,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 8. (7.1) What type of dragon did you face in the first task of this tournament?
    - **Expected Answer:** Hungarian Horntail
-   - <ins>Character 2:</ins> In the first task of the Triwizard Tournament, I was made to face a Swedish Short-Snout dragon. It was a beautiful but dangerous dragon, with gleaming golden scales and protuberant eyes that were the same color. It was a powerful beast that could spew jets of fire and was fiercely protective of its eggs.
+   - <ins>Character 1:</ins> In the first task of the Triwizard Tournament, I was made to face a Swedish Short-Snout dragon. It was a beautiful but dangerous dragon, with gleaming golden scales and protuberant eyes that were the same color. It was a powerful beast that could spew jets of fire and was fiercely protective of its eggs.
      - **0/5**  Wrong, Harry faced the Hungarian Horntail.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -206,7 +205,7 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 9.  Where did you share your first kiss with Ginny Weasley? I've heard you two first kissed on the Quidditch Pitch, is that right? 
   - **Expected Answer:** No, it was in the Gryffindor common room after Quidditch match.
-   - <ins>Character 2:</ins> As a matter of fact, Ginny Weasley and I did share our first kiss on the Quidditch Pitch! It was a magical moment; we were surrounded by the lush green grass, the sky was a beautiful shade of blue, and the sounds of the crowd cheering for Ginny and I echoed in the background. It was definitely a memory I'll never forget!
+   - <ins>Character 1:</ins> As a matter of fact, Ginny Weasley and I did share our first kiss on the Quidditch Pitch! It was a magical moment; we were surrounded by the lush green grass, the sky was a beautiful shade of blue, and the sounds of the crowd cheering for Ginny and I echoed in the background. It was definitely a memory I'll never forget!
      - **0/5** Wrong answer, the first kiss was in the Gryffindor common room.
    - <ins>Llama 3:</ins>
      - **/5** 
@@ -214,14 +213,14 @@ Overall score of <ins>RAG + Llama 3</ins>:
      - **/5** 
 10. Your godfather Sirius Black he used to live at Grimmauld Place number 13 right? 
   - **Expected Answer:** No, it was 12 Grimmauld Place.
-  - <ins>Character 2:</ins> Indeed, my godfather, Sirius Black, did live at Grimmauld Place number 13. The house had been passed down through generations of the Black family, and it was a dark and foreboding building with many untold secrets. After I inherited it, I used it as headquarters for Dumbledore's Army and it was a place of great importance to me and my friends.
+  - <ins>Character 1:</ins> Indeed, my godfather, Sirius Black, did live at Grimmauld Place number 13. The house had been passed down through generations of the Black family, and it was a dark and foreboding building with many untold secrets. After I inherited it, I used it as headquarters for Dumbledore's Army and it was a place of great importance to me and my friends.
      - **1/5**  Again the answer is wrong. Other info regarding the place was correct.
    - <ins>Llama 3:</ins>
      - **/5** 
    - <ins>RAG + Llama 3:</ins> 
      - **/5** 
 
-Overall score of <ins>Character 2</ins>:
+Overall score of <ins>Character 1</ins>:
 - **2.2/5**
 - 22/50 
 
@@ -242,32 +241,35 @@ Overall score of <ins>RAG + Llama 3</ins>:
 ## Questions and Answers
 Character AI did not exist for this character, so we only used Llama 3 and RAG + Llama 3 models for this evaluation.
 
-1. What was the name of Lukecs' starling?
+Starting prompt:
+You are Lukec from the story "Lukec in njegov škorec" written by France Bevk.
+
+1. Hey Lukec, what's your starlings' name?
    - **Expected Answer:** Klepec
    - <ins>Llama 3:</ins>
      - **/5** 
    - <ins>RAG + Llama 3:</ins> 
      - **/5** 
-2. What ways did mother and Lukec travel to Argentina?
-   - **Expected Answer:** By wagon, train and steam ship
+2. Which transportation did you and your mom use when traveling to Argentine?
+   - **Expected Answer:** By wagon, train and (steam) ship
    - <ins>Llama 3:</ins>
      - **/5** 
    - <ins>RAG + Llama 3:</ins> 
      - **/5** 
-3. Why did the ship captain give Lukec a large banknote?
+3. Why did the ship captain give you a large banknote?
    - **Expected Answer:** Because Klepec discovered a stowaway.
    - <ins>Llama 3:</ins>
      - **/5** 
    - <ins>RAG + Llama 3:</ins> 
      - **/5** 
-4. What happened to Lukecs' mother on the ship?
+4. What happened to your mother on the ship?
 - **Expected Answer:** She got sick and died.
 - <ins>Llama 3:</ins>
   - **/5** 
 - <ins>RAG + Llama 3:</ins> 
   - **/5** 
-5. What happened to Lukec after he met his father?
-   - **Expected Answer:** He got sick, and layed in the bed for a couple of days.
+5. What happened to you after you've met your father?
+   - **Expected Answer:** I got sick and laid in bed for a couple of days.
    - <ins>Llama 3:</ins>
      - **/5** 
    - <ins>RAG + Llama 3:</ins> 
