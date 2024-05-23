@@ -131,9 +131,6 @@ dmypy.json
 # MacOS file
 .DS_Store
 
-# Data Raw
-data/raw/harry_potter*.pdf
-
 # Cache
 cache/
 
