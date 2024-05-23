@@ -3,18 +3,18 @@ from models.rag import HPRag
 
 if __name__ == "__main__":
     # Question
-    question = "Are there any students you dislike?"
+    question = "Kakšno znamenje imaš na glavi? Kdo ti ga je dal?"
     # Retrieval Augmented Generation
-    hp_rag = HPRag(use_ensemble_retriever=True, verbose=True)
+    hp_rag = HPRag(use_ensemble_retriever=True, verbose=True, device="cuda:0")
     # Get the context
     context = hp_rag.execute_query(question)
     print(f"Context: {context}")
     # Free up memory on GPU
-    del hp_rag
+    # del hp_rag
     # Large Language Model
     hp_llm = HPLLM()
     # Load the model
-    hp_llm.prepare_model()
+    hp_llm.prepare_model(device="cuda:1")
     # Load the tokenizer
     hp_llm.prepare_tokenizer()
     # Get the response

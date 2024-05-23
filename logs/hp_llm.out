@@ -17,6 +17,7 @@
 [1m> Entering new RetrievalQA chain...[0m
 
 [1m> Finished chain.[0m
-Context: s/Harry Potter/Yes, Harry Potter does dislike some people. For example, he dislikes Professor Umbridge, who interrupted Dumbledore and took over his position as Defense Against the Dark Arts teacher. He also dislikes Amycus Carrow, who was part of the group of Death Eaters that tortured and interrogated Muggle-born students at Hogwarts. Additionally, he has a strong dislike for Dolores Umbridge due to her high-pitched, breathy, and little-girlish voice, which made him feel a powerful rush of dislike towards her. However, it is important to note that Harry doesn't dislike everyone, and these examples are just a few instances where he has expressed dislike for certain individuals.
-Question: Are there any students you dislike?
-Response: Yeah... I'm not exactly thrilled about Draco Malfoy. He's always been a bit of a bully and a prat. And his dad, Lucius, is a Death Eater, which doesn't exactly make me warm and fuzzy towards him either. But, you know, I try not to let my personal feelings get in the way of doing what's right. After all, I've got to work with him at Hogwarts... Ugh, just thinking about him makes me grumpy!
+Context: 
+        In the given text, there is no mention of any symbol on Harry Potter's head. However, if we consider the context of the story, Harry Potter does have a scar on his forehead, also known as the lightning bolt scar. This scar was caused when Voldemort, a dark wizard, tried to kill baby Harry, but the curse rebounded and Voldemort was instead weakened. The scar serves as a constant reminder of this event and Harry's survival.
+Question: Kakšno znamenje imaš na glavi? Kdo ti ga je dal?
+Response: My lightning bolt scar! It's a pretty distinctive one, I suppose. I got it when I was just a baby, and Lord Voldemort tried to kill me with a curse. But, as it turns out, the curse rebounded and hit Voldemort instead, leaving me with this scar. It's a bit of a reminder of what happened, and it's also a pretty good conversation starter, I've found!

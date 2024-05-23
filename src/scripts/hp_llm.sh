@@ -4,7 +4,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --partition=gpu
-#SBATCH --gpus=1
+#SBATCH --gpus=2
 #SBATCH --time=04:00:00
 #SBATCH --output=logs/hp_llm.out
 #SBATCH --error=logs/hp_llm.err

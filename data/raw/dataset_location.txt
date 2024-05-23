@@ -1,0 +1,4 @@
+[Books] Download from Kaggle: https://www.kaggle.com/datasets/icecubical/harry-potter-book-set?resource=download
+[Dialog] Download from OneDrive:
+- [Train] https://hkustgz-my.sharepoint.com/personal/nchen022_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD%2Fen%5Ftrain%5Fset%2Ejson&parent=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD&ga=1
+- [Test] https://hkustgz-my.sharepoint.com/personal/nchen022_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD%2Fen%5Ftest%5Fset%2Ejson&parent=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD&ga=1

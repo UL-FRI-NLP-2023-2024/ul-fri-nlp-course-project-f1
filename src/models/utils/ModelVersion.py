@@ -8,3 +8,4 @@ LLAMA_3_8B = "NousResearch/Meta-Llama-3-8B-Instruct"
 BGE_SMALL = "BAAI/bge-small-en-v1.5"
 # FAISS
 FAISS_PATH = "models/faiss"
+LUKEC_FAISS_PATH = "models/lukec/faiss"

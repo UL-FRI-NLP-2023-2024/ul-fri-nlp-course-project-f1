@@ -132,7 +132,7 @@ dmypy.json
 .DS_Store
 
 # Data Raw
-data/raw/
+data/raw/harry_potter*.pdf
 
 # Cache
 cache/
@@ -152,3 +152,5 @@ logs/
 models/faiss/
 models/peft-final/
 models/peft-hp-dialogue-training/
+models/lukec/
+lukec_cache/

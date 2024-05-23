@@ -1,4 +1,4 @@
-.PHONY: hello rag_container lora_container hp_rag hp_dialog_dataset hp_llm, hp_lora
+.PHONY: hello rag_container lora_container hp_rag hp_dialog_dataset hp_llm, hp_lora, interactive
 
 hello:
 	echo "Hello from Makefile"
@@ -23,3 +23,6 @@ hp_llm:
 
 hp_lora:
 	sbatch src/scripts/hp_lora.sh
+
+interactive:
+	srun --nodes=1 --ntasks=1 --cpus-per-task=2 --partition=gpu --gpus=2 --time=01:00:00 --pty bash -i
