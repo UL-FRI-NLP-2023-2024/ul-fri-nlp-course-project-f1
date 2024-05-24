@@ -1,5 +1,18 @@
 # Natural language processing course 2023/24: `Conversations with Characters in Stories for Literacy`
 
+# Table of Contents
+1. [About](#about)
+2. [Team](#team)
+3. [Repository Structure](#repository-structure)
+4. [High Performance Computing](#high-performance-computing)
+5. [Singularity Containers](#singularity-containers)
+6. [How To Run Scripts](#how-to-run-scripts)
+7. [Retrieval Augmented Generation (RAG)](#retrieval-augmented-generation-rag)
+8. [Harry Potter Question Answering Model](#harry-potter-question-answering-model)
+9. [Harry Potter Interactive Chatbot](#harry-potter-interactive-chatbot)
+10. [Lukec in njegov škorec Interactive Chatbot](#lukec-in-njegov-škorec-interactive-chatbot)
+11. [LoRA LLM Fine-Tuning](#lora-llm-fine-tuning)
+
 ## About
 
 This is **Project 7** of the Natural Language Processing course in year 2023/2024 where we aim to tackle the problem of decreasing literacy skills of younger generations via quick and customized **Persona** bots from novels.
@@ -10,7 +23,7 @@ This is **Project 7** of the Natural Language Processing course in year 2023/202
 * Žiga Drab
 * Vid Cesar
 
-## Repository structure
+## Repository Structure
 
 ```
 ├── containers         <- Singularity containers
@@ -57,43 +70,53 @@ This is **Project 7** of the Natural Language Processing course in year 2023/202
 ├── Makefile           <- Makefile with model and data related commands
 └── README.md          <- The top-level README for developers using this project.
 ```
+## High Performance Computing
+
+This project was made for high performance computing SLURM systems. We created and tested this project on ARNES cluster and for ease of use we recommend you do the same.
+
+## Singularity Containers
+
+All scripts require a Singularity Container, which has all the dependencies installed for us.
+
+There are 2 different Singularity Containers for this project:
+- RAG Container (container-rag.sif): this model is used for running RAGs, LLMs and Interactive Chatbots. Build it with `make rag_container`.
+- LoRA Container (container-lora.sif): this model is used for fine-tuning the LLM. Build it with `make lora_container`.
+
+
+## How To Run Scripts?
+
+There are two ways of running scripts:
+- Directly via `make` command (Example: `make hp_rag`). To view all supported commands please continue reading this README or check `Makefile`
+- Initialize an interactive session by running `make interactive` and then running an interactive script inside Singularity Container while inside and interactive session(Example: `singularity exec --nv containers/container-rag.sif python src/hp_interactive_chatbot.py`)
+
+Remember to run Makefile scripts from the root directory.
 
 ## Retrieval Augmented Generation (RAG)
 
-Details of how to use our RAG model.
+Details of how our RAG model works and how to use it.
 
-### Setup
+### Singularity Container
 
-Before running our models we must make sure all the pre-requisites are met.
+Requires `container-rag.sif`.
 
-#### Dataset
+### How To Run
 
-For the Retrieval Augmented Generation (RAG) model we need PDFs of all the Harry Potter books and place them under `data/raw`.
+We have prepared a script for testing our Harry Potter RAG model in `src/hp_rag.py`.
 
-The data we used is available to download from Kaggle: https://www.kaggle.com/datasets/icecubical/harry-potter-book-set?resource=download. We uploaded it to a shared Google drive folder for easier download. It can be downloaded using Makefile.
+This is not an interactive example, but only a single question to which the model will provide a single answer.
 
+Make sure to set the question to the one you want to pose.
+
+The response will be the context surrounding the question.
+
+Run the script with:
 ```bash
-make download_data
+make hp_rag
 ```
 
-The books should be named `harry_potter_book-N.pdf` where N is the number of the book (i.e. harry_potter_book-1.pdf for Harry Potter and the Philosopher's Stone).
+Output will be in logs/hp_rag.out
 
-#### Singularity Container
-
-The RAG model requires `containers/container-rag.sif` singularity container.
-
-This singularity container can be constructed using the Makefile.
-
-```bash
-make rag_container
-```
-This command will construct a singularity container based on the PyTorch docker container and install all the necessary libraries like langchain, transformers, ...
-
-### Execute
-
-Example of using `HPRag` our Harry Potter RAG model is shown in `src/hp_rag.py`.
-
-#### Initialization
+### Implementation Details
 
 The first step is initializing our RAG model, which is achieved by the following command:
 ```python
@@ -118,8 +141,6 @@ The first run will take a while around 30 minutes as FAISS and embeddings have t
 
 Hybrid Search is slower than FAISS only as BM25 does not supporting caching and therefore the embeddings need to be calculated every time.
 
-#### Querying
-
 Once the RAG is initialized we can start the querying process. Example:
 ```python
 question = "Do you remember what spell Ron mocked Hermione over?"
@@ -132,34 +153,43 @@ The response to this specific question from our RAG model is:
 Response: As Harry Potter, I remember that Ron mocked Hermione over the spell "Wingardium Leviosa". This is the spell that Hermione used to lift Ron's robes while they were playing with Fred and George Weasley's joke spell.
 ```
 
-We have prepared a script for testing our Harry Potter RAG model in `src/hp_rag.py`.
+## Harry Potter Question Answering Model
 
-This script should be executed using the previosly created Singularity Container `containers/container-rag.sif`
+Details of how our Question Answering Harry Potter Model combining RAG + Llama 3 8B Instruct works and how to use it.
 
-Example of running the query script is present in `src/scripts/hp_rag.sh`:
+### Singularity Container
+
+Requires `container-rag.sif`.
+
+### How To Run
+
+We have prepared a script for testing our Harry Potter Question Answering Model in `src/hp_llm.py`.
+
+This is not an interactive example, but only a single question to which the model will provide a single answer.
+
+Make sure to set the question to the one you want to pose.
+
+The model will first pose the question to the RAG model to obtain the context.
+
+The question and the obtained context from the RAG will then be given to the LLM (Llama 3 8B Instruct).
+
+The response will be the answer to the question as the character Harry Potter.
+
+Run the script with:
 ```bash
-make hp_rag
+make hp_llm
 ```
 
-## RAG + Llama 3 8B Instruct Harry Potter Chatbot
+Output will be in logs/hp_llm.out
 
-### Setup
-
-RAG is required for this chatbot to function properly so make sure to follow the guide in the previous section - Retrieval Augmented Generation to setup everything properly.
-
-#### Singularity Container
-
-The RAG model requires `containers/container-rag.sif` singularity container, which should already exist by following the `Setup` section in the previous section - Retrieval Augmented Generation.
-
-### Execute
+### Implementation Detials
 
 The first step is initializing our LLM, which is achieved by the following command:
 ```python
 from models.llm import HPLLM
 hp_llm = HPLLM()
 ```
-To initialize RAG please look at section - Retrieval Augmented Generation.
-#### Querying
+To initialize RAG please look at section - Retrieval Augmented Generation (RAG).
 
 Once the LLM is initialized we can start the querying process. Example:
 ```python
@@ -192,22 +222,117 @@ Querying with RAG + Llama 3 is displayed below:
     print(f"Response: {response}")
 ```
 
-We have prepared a script for testing our Harry Potter RAG model in `src/hp_llm.py`.
+## Harry Potter Interactive Chatbot
 
-This script should be executed using the previosly created Singularity Container `containers/container-rag.sif`
+### Singularity Container
 
-Example of running the query script is present in `src/scripts/hp_llm.sh`:
+Requires `container-rag.sif`.
+
+### How To Run
+
+First create an interactive SLURM job. This can be achieved by running:
 ```bash
-make hp_llm
+make interactive
 ```
 
-## LoRA: Low Rank Adaptation
+Wait for the resources to be allocated (computing-node is something like wn220 or any other node):
+```bash
+srun: job 10256812 queued and waiting for resources
+srun: job 10256812 has been allocated resources
+[user@computing-node]$
+```
 
-### Setup
+Now you can start the interactive chatbot script. You have two choices:
+- LLM only interactive chatbot. This means you will only be chatting with the Llama 3 LLM with no extra context being provided.
+    ```bash
+    [user@computing-node]$ singularity exec --nv containers/container-rag.sif python src/hp_interactive_chatbot.py
+    ```
+- RAG assisted LLM interactive chatbot. This means your question will first be presented to the RAG and then passed onto the LLM along with the context from the RAG.
+    ```bash
+    [user@computing-node]$ singularity exec --nv containers/container-rag.sif python src/hp_interactive_rag_chatbot.py
+    ```
 
-Before running our models we must make sure all the pre-requisites are met.
+The LLM and the RAG (depends on the version) will first be initialized after which point you will be presented with the input to start interacting with the chatbot.
 
-#### Dataset
+```bash
+[RAG] Initialzing...
+.
+.
+.
+[LLM] Finished initialization!
+Q: <your question here>
+A:
+
+<model answer here>
+Q: <your next question here>
+
+A:
+
+<model next answer here>
+.
+.
+.
+```
+
+## Lukec in njegov škorec Interactive Chatbot
+
+### Singularity Container
+
+Requires `container-rag.sif`.
+
+### How To Run
+
+First create an interactive SLURM job. This can be achieved by running:
+```bash
+make interactive
+```
+
+Wait for the resources to be allocated (computing-node is something like wn220 or any other node):
+```bash
+srun: job 10256812 queued and waiting for resources
+srun: job 10256812 has been allocated resources
+[user@computing-node]$
+```
+
+Now you can start the interactive chatbot script. You have two choices:
+- LLM only interactive chatbot. This means you will only be chatting with the Llama 3 LLM with no extra context being provided.
+    ```bash
+    [user@computing-node]$ singularity exec --nv containers/container-rag.sif python src/lukec_interactive_chatbot.py
+    ```
+- RAG assisted LLM interactive chatbot. This means your question will first be presented to the RAG and then passed onto the LLM along with the context from the RAG.
+    ```bash
+    [user@computing-node]$ singularity exec --nv containers/container-rag.sif python src/lukec_interactive_rag_chatbot.py
+    ```
+
+The LLM and the RAG (depends on the version) will first be initialized after which point you will be presented with the input to start interacting with the chatbot.
+
+```bash
+[RAG] Initialzing...
+.
+.
+.
+[LLM] Finished initialization!
+Q: <your question here>
+A:
+
+<model answer here>
+Q: <your next question here>
+
+A:
+
+<model next answer here>
+.
+.
+.
+```
+
+## LoRA LLM Fine-Tuning
+
+### Singularity Container
+
+Requires `container-lora.sif`.
+
+### Dataset
 
 For fine-tuning we require the Harry Potter dialogue dataset.
 
@@ -215,31 +340,29 @@ The data is already provided in `data/external`, but can also be downloaded from
 - [Train] https://hkustgz-my.sharepoint.com/personal/nchen022_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD%2Fen%5Ftrain%5Fset%2Ejson&parent=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD&ga=1
 - [Test] https://hkustgz-my.sharepoint.com/personal/nchen022_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD%2Fen%5Ftest%5Fset%2Ejson&parent=%2Fpersonal%2Fnchen022%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2F202307%5FHPD&ga=1
 
-#### Singularity container
-
-The LoRA fine-tuning process requires `containers/container-lora.sif` singularity container.
-
-This singularity container can be constructed using the Makefile.
-
-```bash
-make lora_container
-```
-This command will construct a singularity container based on the PyTorch docker container and install all the necessary libraries like pytorch, transformers, json, ...
-
-### Execute
+### How To Run
 
 #### Data preparation
+
 The previously downloaded data is not yet suitable for fine-tuning the large language models.
 
 Utilize the script `src/data/hp_dialog_dataset.py` to prepare data that is suitable for fine-tuning.
 
 This script can be run with the following command:
-
 ```bash
 make hp_dialog_dataset
 ```
 
-#### Initialization
+#### Fine-Tuning
+
+We have prepared a script for fine-tuning in `src/hp_lora.py`.
+
+This script can be run with the following command:
+```bash
+make hp_lora
+```
+
+### Implementation Details
 
 The first step is initializing our LoRA trainer, which is achieved by the following command:
 ```python
@@ -255,20 +378,8 @@ Documentation:
 fine_tuned_model_directory: string -> name of the folder inside `models` folder where the fine-tuned adapter checkpoints are saved. The final adapters are saved in the folder `fine_tuned_model_directory-final`.
 ```
 
-### Fine-Tuning
-
 Once the LoRA trainer is initialized we can begin the fine-tuning process by calling:
 
 ```python
 hp_lora.fine_tune_model(verbose=True)
-```
-
-We have prepared a script for fine-tuning in `src/hp_lora.py`.
-
-This script should be executed using the previosly created Singularity Container `containers/container-lora.sif`
-
-Example of running the fine-tuning script is present in `src/scripts/hp_lora.sh`:
-
-```bash
-make hp_lora
 ```

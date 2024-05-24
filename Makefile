@@ -6,8 +6,8 @@ hello:
 rag_container:
 	./containers/create_rag_container.sh
 
-download_data:
-	sbatch src/scripts/download_data.sh
+download_cache:
+	sbatch src/scripts/download_cache.sh
 
 lora_container:
 	./containers/create_lora_container.sh
