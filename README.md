@@ -92,6 +92,11 @@ There are two ways of running scripts:
 
 We recommend downloading cache data which we uploaded to external drive for a quicker Peer Review process by running `make download_cachw`. You can skip this step, but the first run will take noticably longer.
 
+If you encounter any errors in /logs dictionary, related to issues with permissions, use the following command to make .sh file executable:
+```bash
+chmod u+x path/to/file.sh
+```
+
 Remember to run Makefile scripts from the root directory.
 
 ## Peer Review
@@ -103,6 +108,7 @@ This section provides a **step-by-step example** on running the Harry Potter cha
 To save about an hour of setup time, pre-download cached data by running following command in the root directory:
 
 ```bash
+chmod u+x src/models/data/download_cache.sh
 make download_cache
 ```
 
@@ -117,6 +123,7 @@ squeue --me
 Build the necessary Singularity container:
 
 ```bash
+chmod u+x ./containers/create_rag_container.sh
 make rag_container
 ```
 
