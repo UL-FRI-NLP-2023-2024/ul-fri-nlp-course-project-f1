@@ -7,11 +7,12 @@
 4. [High Performance Computing](#high-performance-computing)
 5. [Singularity Containers](#singularity-containers)
 6. [How To Run Scripts](#how-to-run-scripts)
-7. [Retrieval Augmented Generation (RAG)](#retrieval-augmented-generation-rag)
-8. [Harry Potter Question Answering Model](#harry-potter-question-answering-model)
-9. [Harry Potter Interactive Chatbot](#harry-potter-interactive-chatbot)
-10. [Lukec in njegov škorec Interactive Chatbot](#lukec-in-njegov-škorec-interactive-chatbot)
-11. [LoRA LLM Fine-Tuning](#lora-llm-fine-tuning)
+7. [Peer Review](#peer-review)
+8. [Retrieval Augmented Generation (RAG)](#retrieval-augmented-generation-rag)
+9. [Harry Potter Question Answering Model](#harry-potter-question-answering-model)
+10. [Harry Potter Interactive Chatbot](#harry-potter-interactive-chatbot)
+11. [Lukec in njegov škorec Interactive Chatbot](#lukec-in-njegov-škorec-interactive-chatbot)
+12. [LoRA LLM Fine-Tuning](#lora-llm-fine-tuning)
 
 ## About
 
@@ -88,7 +89,8 @@ There are 2 different Singularity Containers for this project:
 There are two ways of running scripts:
 - Directly via `make` command (Example: `make hp_rag`). To view all supported commands please continue reading this README or check `Makefile`
 - Initialize an interactive session by running `make interactive` and then running an interactive script inside Singularity Container while inside and interactive session(Example: `singularity exec --nv containers/container-rag.sif python src/hp_interactive_chatbot.py`)
-- Download cache data which we uploaded to external drive for quicker Peer Reviews by running `make download_cachw`. You can skip this step, but the first run will take noticably longer.
+
+We recommend downloading cache data which we uploaded to external drive for a quicker Peer Review process by running `make download_cachw`. You can skip this step, but the first run will take noticably longer.
 
 Remember to run Makefile scripts from the root directory.
 

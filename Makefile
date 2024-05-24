@@ -28,4 +28,4 @@ hp_lora_llm:
 	sbatch src/scripts/hp_lora_llm.sh
 
 interactive:
-	srun --nodes=1 --ntasks=1 --cpus-per-task=2 --partition=gpu --gpus=2 --time=01:00:00 --pty bash -i
+	srun --nodes=1 --ntasks=1 --cpus-per-task=2 --partition=gpu --gpus=2 --time=03:00:00 --pty bash -i
