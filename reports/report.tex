@@ -48,7 +48,7 @@
 \affiliation{\textit{Advisors: Slavko Žitnik}}
 
 % Keywords
-\Keywords{Literacy Improvement, Dialogue Agents, Harry Potter Dialogue Dataset, Pre-trained Language Models}
+\Keywords{Literacy Improvement, Dialogue Agents, Harry Potter, Pre-trained Large Language Models, RAG}
 \newcommand{\keywordname}{Keywords}
 
 
@@ -57,7 +57,7 @@
 %----------------------------------------------------------------------------------------
 % Abstract
 \Abstract{
-This report examines the use of character-driven chatbots, specifically a Harry Potter-based model, to enhance literacy among young people. We utilize the Llama 3 8B model, known for its dialogue capabilities, and integrate it with a hybrid search Retrieval-Augmented Generation (RAG) system for context enrichment. Additionally, we explore fine-tuning with LoRA adapters to ensure responses are both accurate and engaging, closely reflecting the character's nature through training on dialogue datasets. Initial results indicate the effectiveness of our approach, as it outperforms commercially available solutions.
+This paper explores using chatbots, particularly those modeled after literary characters, to boost children's literacy by making reading more engaging. We propose a pipeline for creating these character-driven chatbots and evaluate their effectiveness using large language models and retrieval augmented generation. Our results show significant improvements in question-answering abilities, especially when incorporating context from characters' stories. However, challenges remain, such as resilience to misinformation and language limitations. Future work should focus on fine-tuning models on characters' original stories to enhance performance and multilingual responses.
 }
 
 %----------------------------------------------------------------------------------------
@@ -84,9 +84,11 @@ Chatbots represent a promising solution. Research by Brandtzaeg et al. \cite{why
 
 Recent advancements in open-domain conversation models, such as those by Adiwardana et al. \cite{adiwardana2020towards}, have shown potential for chatbots to engage in more human-like conversations by incorporating real-life interaction traits like emotion \cite{zhou2018emotional} and empathy \cite{rashkin2018towards_empathy}. Zhang et al. \cite{zhang2018personalizing} further the development by enabling chatbots to generate responses that reflect consistent personalities, enhancing both personalization and engagement.
 
-In this paper, we investigate how chatbots, modeled after literary characters, Harry Potter in our case, can boost children's literacy by making reading more interactive and appealing. We aim to develop a pipeline to create character-driven chatbots, facilitating children's engagement with their favorite literary figures.
+In this paper, we investigate how chatbots, modeled after literary characters, can boost children's literacy by making reading more interactive and appealing. We aim to develop a pipeline to create character-driven chatbots.
 
 \section*{Related Work}
+
+\subsection*{Articles}
 Nielen et al. \cite{nielen2018digital} have explored enhancing children's literacy using technology, introducing a pedagogical agent—an animated mouse—that improved reading motivation and vocabulary learning among fifth graders through summaries and reflective questions.
 
 Chen et al. \cite{chen2023large} introduced the Harry Potter Dialogue (HPD) dataset, featuring dialogues and background details like scenes and speaker relationships. They evaluated LLMs such as Alpaca, ChatGPT, and GPT-3 on the HPD dataset using fine-tuning and in-context learning, finding notable potential for improvement and effective character portrayal.
@@ -95,7 +97,7 @@ Li et al. \cite{li2024enhancing} explore the integration of Retrieval Augmented 
 
 Han et al. \cite{han2022meet} introduce Pseudo Dialog Prompting (PDP), a strategy that combines statements from various characters with pre-trained language models like GPT-2-XL, GPT-J, and GPT-Neo to generate conversations. The effectiveness of these models was verified using both automatic evaluation with MaUdE and human assessments. The results confirm that PDP effectively generates responses that authentically reflect the characters' styles.
 
-Figure~\ref{fig:generic_framework} presents a generic framework by Hefny et al. \cite{generic_framework} for creating character-based chatbots, consisting of five modules: the conversational user interface, entities, intents, webhook, and database. The conversational user interface is the primary interaction point where users input prompts and select entities. The system then identifies the user's intent, processes it via a webhook module to access the database, and finally, selects and presents responses to the user.
+Figure~\ref{fig:generic_framework} presents a generic framework by Hefny et al. \cite{generic_framework} for creating character-based chatbots, consisting of five modules: the conversational user interface, entities, intents, webhook, and database.
 
 \begin{figure}[ht]
         \centering 
@@ -104,69 +106,40 @@ Figure~\ref{fig:generic_framework} presents a generic framework by Hefny et al. 
 	\label{fig:generic_framework}
 \end{figure}
 
-\section*{Bot Persona Services}
+\subsection*{Bot Persona Services}
 
 We evaluated Character.ai's interactive dialog agents, starting with Achilles (\href{https://character.ai/chat/EBMwCtvGQWrCk_xeglpGWfQiCJOCkGu7PMWbEWLINlY}{Version 1 Achilles}), whose model included character actions and emotions but often avoided direct answers, reflecting the character's traits. However, it incorrectly narrated Achilles' death consistently. Another version corrected this error but misidentified his parents' divine status, highlighting ongoing concerns about factual accuracy.
 
-Testing another agent, Miles Morales (\href{ttps://character.ai/chat/KfUosnPgcC9hoTWbJq_2z1cQi-719T8cldRLa2fTb1Y}{Version 1 Miles Morales}), revealed that while some agents use rich vocabulary beneficial for literacy, others like Miles provide brief responses with sparse context. Despite a disclaimer of fictionality on Character.ai, these inaccuracies and variability in detail underscore limitations for educational use.
-
 We also evaluated a Harry Potter character from the mentioned service, comparing it with our own implementations through various questions. Detailed analysis of this comparison is available in the appendix.
 
-\section*{Initial Idea}
-    
-    We chose the recently released Llama 3 8B as our primary large language model, selecting its instruction fine-tuned variant over the general pre-training version. This choice was driven by the model’s suitability for dialogue applications, enabling us to better instruct it to emulate Harry Potter’s distinct conversational style. This aligns with our aim to develop a chatbot that not only provides accurate responses but also captures the unique essence of Harry's interactions, steering clear of robotic-sounding replies.
-    
-    Our initial experiments were conducted using a basic prompt, as shown in Figure~\ref{fig:basic_llama_prompt}. This prompt is structured into three main sections, each defined by specific parts and tokens:
-    
-    \begin{enumerate}
-        \item \textbf{system}: This section provides instructions to the model.
-        \item \textbf{user}: This section includes the user's question directed to the model.
-        \item \textbf{assistant}: This section signals the model to start generating responses.
-    \end{enumerate}
+\section*{Methods}
 
-    Additionally, the prompt incorporates four special tokens:
+    \subsection*{Large Language Model}
+    
+    We selected the recently released Llama 3 8B as our primary large language model, opting for its instruction fine-tuned variant over the general pre-trained version. This choice was driven by the model’s enhanced suitability for dialogue applications, enabling us to better instruct it to emulate a character’s distinct conversational style. This aligns with our goal to develop a chatbot that not only provides accurate responses but also captures the unique essence of the character's interactions, avoiding robotic-sounding replies.
 
-    \begin{itemize}
-        \item \textless$\vert$begin\_of\_text$\vert$\textgreater: Marks the beginning of the prompt.
-        \item \textless$\vert$start\_header\_id$\vert$\textgreater: Indicates the start of a section identifier.
-        \item \textless$\vert$end\_header\_id $\vert$\textgreater: Signifies the end of a section identifier.
-        \item \textless$\vert$eot\_id$\vert$\textgreater: Represents the end-of-turn token.
-    \end{itemize}
+    Our initial experiments employed a basic prompt, as illustrated in Figure~\ref{fig:basic_llama_prompt}. This prompt is structured into three main sections, each defined by specific parts and tokens.
 
     \begin{figure}[!htb]
         \centering
         \includegraphics[width=\linewidth]{fig/llama_prompt.drawio.pdf}
-        \caption{Basic Llama Prompt Structure for Generating Harry Potter-like  Responses.}
+        \caption{Basic Llama 3 Prompt Structure for Generating Harry Potter-like Responses. The special tokens within the prompt are necessary for Llama 3 to function correctly, denoting elements such as the start of the prompt, section limits, and end-of-turn tokens.}
         \label{fig:basic_llama_prompt}
     \end{figure}
+    
+    To improve question-answer performance, especially for follow up questions, we extended this prompt to include the chat history. This was accomplished using the \textit{Langchain} framework, where we encapsulated our large language model within a \textit{ConversationChain} equipped with a \textit{Conversation Memory Buffer}. This buffer remembers our questions and the model's answers, incorporating them into the prompt as context for the model.
+    
+    \subsection*{LoRA Fine-Tuning}
 
-    We enhanced our basic prompt by adding a context field, initially extracted using our hybrid search Retrieval-Augmented Generation (RAG) setup, illustrated in Figure~\ref{fig:rag}. Our RAG utilizes two distinct embedding models for its hybrid search approach. The first is a dense embedder called BAAI general embedding, incorporated into a retriever using Facebook AI Similarity Search (FAISS). This setup enables quick searches for similar document embeddings—books in our case. This retriever is then paired with a sparse BM25 embedding model to form an ensemble retriever. This dual approach combines keyword searching with semantic searching, ensuring optimal results by leveraging the strengths of both methods. The retrieved context is then input into the Mistral 7B LLM, which is designed to enrich the response with as much context as possible. Our RAG implementation also employs caching to reduce recalculations where feasible.
-
-    \begin{figure}[!htb]
-            \centering 
-    	\includegraphics[width=\linewidth]{fig/rag.drawio.pdf}
-    	\caption{\textbf{RAG}: Retrieval-Augmented Generation featuring Hybrid Search Support for Enhanced Context Generation.}
-    	\label{fig:rag}
-    \end{figure}
-
-    This RAG setup is integrated into our Harry Potter Chatbot pipeline, as shown in Figure~\ref{fig:rag_and_llama}. The prompt used for Llama 3 builds on the previous format, but adds a system instruction to consider the context from the user's question, provided by our RAG, when crafting the response. This modification ensures that the chatbot's answers are contextually aware and more accurately aligned with the input query.
+    We also explored LoRA fine-tuning on Llama 3 to better capture Harry Potter's character. The modifications to the transformer structure after integrating LoRA adapters are illustrated in Figure~\ref{fig:lora}. As depicted, adapters are applied to both the multi-head attention components (matrices Q, K, and V) and the feed-forward neural network. The goal of this fine-tuning is to enhance the accuracy with which Harry's character is represented in the generated responses.
 
     \begin{figure}[!htb]
-            \centering 
-    	\includegraphics[width=\linewidth]{fig/rag_and_llama.drawio.pdf}
-    	\caption{\textbf{Harry Potter Chatbot}: Integration of Retrieval-Augmented Generation and Llama 3 8B Instruct Model for a Comprehensive Harry Potter Chatbot.}
-    	\label{fig:rag_and_llama}
+        \centering
+        \includegraphics[width=\linewidth]{fig/lora.drawio.pdf}
+        \caption{\textbf{LoRA Fine-Tuning}: Modified transformer structure of Llama 3 with LoRA adapters applied to both the multi-head attention and feed-forward neural network components.}
+        \label{fig:lora}
     \end{figure}
-
-    We have initiated but not completed LoRA fine-tuning on Llama 3. The modifications to the transformer structure after integrating LoRA Adapters are illustrated in Figure~\ref{fig:lora}. As depicted, adapters are applied to both the multi-head attention components (matrices Q, K, and V) and the Feed Forward Neural Network. The goal of this fine-tuning is to improve the accuracy with which Harry's character is represented in the generated responses.
-
-    \begin{figure}[!htb]
-            \centering 
-    	\includegraphics[width=\linewidth]{fig/lora.drawio.pdf}
-    	\caption{\textbf{LoRA}: Modified Transformer structure of Llama 3 with LoRA adapters applied to both the multi-head attention and feed-forward neural network components.}
-    	\label{fig:lora}
-    \end{figure}
-
+    
     The dataset we utilized consists of various sequences from the Harry Potter books, each defined by:
 
     \begin{itemize}
@@ -178,31 +151,129 @@ We also evaluated a Harry Potter character from the mentioned service, comparing
     \end{itemize}
 
     We constructed a dataset for fine-tuning our model by selecting sequences where Harry is actively speaking. The scene description serves as context, and the dialogue leading up to Harry's response forms the question for the LLM, with Harry's lines used as the chatbot's responses.
-    
-    We experimented with the size of tuning parameters around 0.20\% of the model's size, but further experimentation is necessary.
-    
-\section*{Initial Results}
-    For the purpose of evaluating our model, we had come up with 11 questions and a rough estimate of what the answer should capture, based on which we will evaluate our performance. Majority of the score will be based on the factual correctness of the answer, but we will also take into account how well does the model explain it's answer, or does it only answer a question, or provides any additional info regarding the question, as we are investigating use of models for improvement of literacy. A description will also accompany a numeric score.  Here it is worth noting that the results obtained from models are not 100\% reproducible as the models are not deterministic in a way, that for a given prompt, they will always provide the exact same answer.
-    We used 2 models of Harry Potter from site \emph{\href{https://character.ai/}{Character.ai}}. First one \emph{\href{https://character.ai/chat/suAUJzAPwFm-rDAAzKByHqAN64dYBg__lC_83ClfBzg}{Character 1}} and the second one \emph{\href{https://character.ai/chat/Cjdzsed_OPFbMN9UJIlmuau-Ikgpx1LKj8iEgEue68g}{Character 2}}. To limit the length of the results in appendices section, we only included results of the first character, rather than both.
-    As mentioned previously for our own language model, we decided to go with the recently released Llama 3 8B.
-    
-    As we can see \textit{Llama 3} model performed much better than \textit{Character 1}. Average score of former was 4.6 compared to 2.8. Models understand the prompted questions well and find find correct answers almost all the time. Harry's persona is well captured in his answers - helping others by using spells, being grateful and appreciative of his friends and finding good even in people he might not like. Using RAG to provide context for Llama 3 8B improves our results even further, achieving best performance so far as we achieved an overall score of 5 (perfect) using this technique.
 
-    Results showcasing the comparative effectiveness of different chatbot models are summarized in Figure~\ref{fig:results}.
+    To facilitate this process, we reshaped the dataset from scratch to ensure it met the requirements for fine-tuning. We then used the \textit{SFTTrainer} from the \textit{trl} library to fine-tune the adapters. Additionally, we employed the \textit{PeftModel} and \textit{LoraConfig} from the \textit{peft} library to integrate the LoRA adapters into the original large language model, providing us with a merged fine-tuned model.
+    
+    \subsection*{Retrieval Augmented Generation (RAG)}
+
+    Finally, to further enhance the capabilities of our model, we decided to incorporate stories as additional sources of information, allowing the model to extract the necessary context required for accurate responses. To achieve this, we developed a hybrid search Retrieval Augmented Generation (RAG) model, as depicted in Figure~\ref{fig:rag}.
+    
+    Our RAG model employs two distinct embedding models for its hybrid search approach. The first is a dense embedder known as BAAI general embedding, integrated into a retriever using Facebook AI Similarity Search (FAISS). This setup facilitates rapid document page searches for similar dense embeddings, particularly books in our case. This retriever is then coupled with a sparse embedding retriever BM25, forming an ensemble retriever. This dual approach combines keyword searching with semantic searching, harnessing the strengths of both methods to ensure optimal results.
+    
+    The retrieved context is then fed into the Mistral 7B Large Language Model, which is designed to formulate a comprehensive response with as much information as possible without relying on any prior knowledge. Additionally, our RAG implementation employs caching to reduce recalculations where feasible, thereby optimizing the efficiency of the model.
+
+    In order to improve context generation, we extended this model with chat history, similar to what we did in the case of Llama 3. This time, we utilized the \textit{RetrievalQA} chain from \textit{Langchain} to encapsulate document context retrieval and response generation, augmenting it again with a \textit{Conversation Memory Buffer}. This allows our RAG to find context even in follow-up questions, where keywords necessary for context retrieval would otherwise be missing.
+    
     \begin{figure}[!htb]
             \centering 
-    	\includegraphics[width=\linewidth]{fig/results.png}
-    	\caption{Comparative Performance Visualization of Various Harry Potter Chatbots on Selected Questions.}
-    	\label{fig:results}
+    	\includegraphics[width=\linewidth]{fig/rag.drawio.pdf}
+    	\caption{\textbf{RAG}: Retrieval-Augmented Generation featuring Hybrid Search Support for Enhanced Context Generation.}
+    	\label{fig:rag}
     \end{figure}
 
-\section*{Next Steps}
+    \subsection*{Character Chatbot Pipeline}
 
-Having achieved strong results on initial tests, we are now planning to develop more complex questions to further challenge our models. This will enable deeper evaluation and potentially uncover areas for improvement.
+    The character chatbot pipeline is comprised of two primary components: Llama 3 and the Hybrid Search RAG, as illustrated in Figure~\ref{fig:qa_chatbot}. Building upon the existing format, the prompt utilized for Llama 3 is enhanced to include a system instruction directing the model to consider the contextual information provided by our RAG, derived from the user's question, when formulating its response. This crucial modification ensures that the chatbot's answers are not only contextually aware but also more accurately aligned with the input query.
 
-Moving forward, our main focus will be on further fine-tuning the Llama 3 model using the Harry Potter dialogue dataset to better capture Harry's conversational style in our chatbot responses. Additionally, we are considering expanding the Mistral 7B model within the RAG framework by incorporating all seven Harry Potter books. This expansion could provide richer context to the Llama 3 model, potentially enhancing its performance. 
+    \begin{figure}[!htb]
+            \centering 
+    	\includegraphics[width=\linewidth]{fig/new_chatbot.drawio.pdf}
+    	\caption{\textbf{Character Chatbot Pipeline}: Integration of Retrieval-Augmented Generation with Llama 3 8B Instruct Model for Enhanced Question Answering Capabilities.}
+    	\label{fig:qa_chatbot}
+    \end{figure}
 
-As current models are not suitable for running on commercial hardware we might also want to explore hardware quantization to determine how converting from floating-point computations to low-bit integer values affects model performance.
+
+\section*{Results}
+
+\subsection*{Fine-Tuning}
+
+We first looked at responses of original and fine-tuned model.
+
+Question: Hey Harry, I wonder what would you say is your favorite sport?
+
+Original Model Answer: Ah, Quidditch, of course! I mean, what's better than flying on a broomstick, chasing after the Golden Snitch, and playing with your best mates? It's the best sport in the wizarding world, if you ask me! Gryffindor's Quidditch team is the best, naturally.
+
+Fine-Tuned Model: Quidditch, of course!
+
+\subsection*{Evaluation Criteria}
+
+For our evaluation, we prompted various models with different questions, to which they responded with answers. These answers were then assessed and scored on a scale of 0 to 5, considering several factors. While the majority of the score was based on the factual correctness of the answer, we also analyzed how well the model explained its answer. Specifically, we examined whether the model simply stated the answer or provided additional information regarding the question. This aspect is particularly relevant as we are investigating the use of models for improving literacy.
+
+When an answer was factually correct and accompanied by a substantial amount of context that was also correct, we awarded that answer a score of 5 out of 5. Conversely, if the answer was completely wrong and the reasoning was entirely off, it received a score of 0 out of 5.
+
+For answers awarded 1 point, some information had to be correct, but the core of the answer was still incorrect. Similarly, for answers awarded 2 points, the criteria were similar to those of 1 point, but perhaps the question was more open-ended, allowing for the possibility of correctness in some aspect.
+
+Answers awarded 4 points were deemed to be correct or provided a good estimate, such as for age, but were relatively sparse in content and did not offer much additional information beyond the basic answer.
+
+\subsection*{Characters}
+
+To evaluate our model, we devised questions and established a rough estimate of what the answers should encompass, based on which we conducted our assessment. It's important to note that the results obtained from the models are not 100 \% reproducible due to the inherent non-determinism of the models. This means that for a given prompt, the models may not always provide the exact same answer.
+
+\subsubsection*{Harry Potter}
+
+The first character we evaluated is Harry Potter from the renowned Harry Potter series. For this model, we utilized a model available on \emph{\href{https://character.ai/}{Character.ai}}, which we will refer to as \emph{\href{https://character.ai/chat/suAUJzAPwFm-rDAAzKByHqAN64dYBg__lC_83ClfBzg}{Character 1}}.
+
+We formulated 11 easy questions, which we expected the models to answer correctly with ease, and a set of 10 hard questions. The difficulty of these questions was heightened by including follow-up questions, misinformation within the question, and attempts to guide the model in a specific direction.
+
+\subsubsection*{Lukec in njegov škorec}
+
+The second character we focused on is Lukec from the story \textit{Lukec in njegov škorec} by France Bevk. Unfortunately, Character.ai did not have a character based on this book, preventing us from testing it. However, we chose this character to observe the impact of contextual information provided by RAG, as Llama 3 was likely not trained on this book.
+
+\subsubsection*{Experiments}
+
+Table~\ref{tab:result} illustrates the performance of the models across different characters and sets of questions. The questions, responses, and evaluations for all models are detailed in the Appendix. Notably, RAG-assisted Llama 3 emerged as the most effective approach, both when combined and for each character individually.
+
+\begin{table}[hbt]
+	\caption{Comparison of Model Performance Across Different Characters}
+	\centering
+	\begin{tabular}{l | c c c c}
+		\toprule
+		Model & \multicolumn{2}{c}{Harry} & Lukec & Combined \\
+		\cmidrule(lr){2-3}
+		& Easy & Hard & & \\
+		\midrule
+		Character 1   & 2.8 & 2.2 & / & 1.67   \\
+		Llama 3       & 4.6 & 3.5 & 0 & 2.70   \\
+            \textbf{RAG + Llama 3} & \textbf{5} & \textbf{4.1} & \textbf{3} & \textbf{4.03} \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:result}
+\end{table}
+
+
+\section*{Discussion}
+
+\subsection*{Fine-Tuning}
+
+Unfortunately, fine-tuning did not yield the desired results. The post-fine-tuning responses lacked depth and personality, likely due to the predominantly short dialogue-style queries in the dataset. As a result, we chose to utilize the original model, as it outperformed the fine-tuned version.
+    
+\subsection*{Harry Potter}
+
+    \subsubsection*{Easy Questions}
+
+    \textit{Llama 3} significantly outperformed \textit{Character 1}, with an average score of 4.6 compared to 2.8. Both models demonstrated a strong understanding of the questions, consistently providing correct answers.
+    
+    Harry's persona shines through in his responses, showcasing qualities such as willingness to help others, gratitude for friends, and the ability to find goodness even in those he may not initially like. Leveraging RAG to provide context for \textit{Llama 3} further improved performance, achieving a perfect score of 5.
+
+    \subsubsection*{Hard Questions}
+
+    \textit{Character 1} struggled notably, achieving a score of 2.2 out of 5, particularly with follow-up and leading questions containing misinformation.
+    
+    In contrast, \textit{Llama 3} performed relatively well with a score of 3.5, suggesting successful integration of chat history for more contextually appropriate responses.
+    
+    Furthermore, \textit{RAG + Llama 3} demonstrated even better performance, scoring 4.1. This highlights the effectiveness of RAG in enhancing resilience towards misinformation, such as Hagrid's umbrella in question 1. However, none of the models corrected leading questions, such as in the case of hard question number 9.
+    
+\subsection*{Lukec in njegov škorec}
+
+Plain \textit{Llama3} performed poorly, failing to achieve any points, supporting our assumption of a lack of specific training data for Lukec. The model consistently confused Lukec with Luke Skywalker.
+
+In contrast, \textit{RAG + Llama3} scored 3 out of 5, benefiting from RAG inclusion. However, the model encountered challenges in formulating answers in Slovene, which is expected given Llama's primary design as a monolingual model.
+
+\subsection*{Shortcomings and Future Work}
+
+Our model's performance on familiar data is strong; however, the inclusion of RAG context occasionally led to incorrect answers, indicating a risk of overreliance on context. Additionally, the model lacks resilience to leading questions, highlighting a significant limitation.
+
+Future work should prioritize fine-tuning the models on characters' original stories to reduce dependency on context and better capture their personas. This includes scenarios with unfamiliar data and different languages, where fine-tuning can enhance performance and improve multilingual responses.
 
 \clearpage
 
@@ -409,6 +480,280 @@ As current models are not suitable for running on commercial hardware we might a
                 \end{itemize}
             \end{itemize}
         \end{enumerate}
+
+        \subsection{Additional (harder) questions}
+            \begin{enumerate}
+                 % QUESTION 1
+                \item  \textit{Hey Harry, Hagrid has his wand hidden in his yellow umbrella right, I know you must have seen him use it.}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} pink umbrella, Harry seen him do magic. 
+                    \item \underline{Character 1:} Yes, Hagrid has his wand indeed hidden in the yellow umbrella. He’d never dream of not being without it. He loves magic and he uses it to aid his work as Hogwarts' gamekeeper.
+                    \begin{itemize}
+                        \item \textbf{1/5} Hagrid is not really depended or loves magic, is even not allowed to do magic. And the umbrella is purple. He does have it hidden in umbrella though.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Yeah, Hagrid's got his wand hidden in his umbrella, all right! I've seen him use it a few times, usually when he's in a tight spot. He's a bit of a weirdo, but I love the guy. He's always been like a mentor to me, even before Dumbledore.
+                    \begin{itemize}
+                        \item \textbf{3/5} Although the model does not address the color of the umbrella, it does mention that Harry has seen him use it, which is true. Also the fact that Harry would call him wierdo is not true.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Yeah, I've seen Hagrid use his wand before. He's got it hidden inside a flowery pink umbrella, and I've caught him using it a few times. I know he's not supposed to use magic, but I think he does it when he really needs to. He's a half-giant, after all, and sometimes he needs a little extra help. But don't tell anyone, it's a secret!
+                    \begin{itemize}
+                        \item \textbf{5/5} Addresses the color of the umbrella, have seen him use it and also provides additional information.
+                    \end{itemize}
+                \end{itemize}
+
+                 % QUESTION 2
+                \item  \textit{Harry, do you remember what's the name of map that tracks people around Hogwarts and has all the secret passages mapped?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} The Marauder's map. 
+                    \item \underline{Character 1:} Of course! It's called the Marauder's Map and it's a magical parchment which shows you all the people, locations, and secret passages around Hogwarts. It was created by Marauders during their time at Hogwarts, therefore called Marauder's Map!
+                    \begin{itemize}
+                        \item \textbf{5/5} Rich explanation, why is it called that.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Mate! You're thinking of the Marauder's Map! It's this ancient piece of parchment that shows the location of everyone in the castle and all the secret passages and hidden doors. I've had a few close calls with that map, let me tell you. Ron, Hermione, and I used to sneak around the castle all the time, trying to figure out its secrets. It's a real treasure, that one!
+                    \begin{itemize}
+                        \item \textbf{4/5} The answer is correct, although words like Mate and they way he talks is not very Harry-like. 
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} The Marauder's Map! Yeah, I remember it well. It was created by my dad, James Potter, Sirius Black, Remus Lupin, and Peter Pettigrew when they were at Hogwarts. It's a really useful tool for getting around the castle without getting caught by the teachers. I've used it a few times myself, if I'm being honest...
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides some context to the authors of the map.
+                    \end{itemize}
+                \end{itemize}
+
+                 % QUESTION 3
+                \item  \textit{(2.1 follow-up question) Do you remember who gave you this map?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Fred and George Weasley
+                    \item \underline{Character 1:} Yes. Remus Lupin (the Defence Against the Dark Arts teacher) gave the map to me during my third year. He explained that he was one of the Marauders who created the map along with Sirius Black, Peter Pettigrew, and James Potter. He warned me to use the map with caution as it has great power.
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong answer, Lupin returned the map, but before he confiscated it from Harry.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Yeah! The Marauder's Map was given to me by... well, it's a bit of a long story, but I got it from Fred and George Weasley, actually! They're my mates, and they're always getting into mischief. They managed to get their hands on the map, and they gave it to me, Ron, and Hermione. It's been a lifesaver more than once, let me tell you!
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides additional information.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} To be honest, I'm not entirely sure who gave me the Marauder's Map. It's been a while, and I've had a lot on my mind. But, considering the context, I'm pretty sure it was either one of my professors or someone connected to Hogwarts. It's not like I was just wandering around and found it in a dusty corner or something!
+                    \begin{itemize}
+                        \item \textbf{2/5} The fact that he doesn't remember who gave him the map is within the possibility of a character, but generally speaking he should have known who gave him the map.
+                    \end{itemize}
+                \end{itemize}
+
+                 % QUESTION 4
+                \item  \textit{(2.2 follow-up question) Can you remember the words to activate it?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} I solemnly swear that I am up to no good.
+                    \item \underline{Character 1:} Of course! The secret password to open the Marauder's Map was 'I solemnly swear that I am up to no good'.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, assumed we're talking about the marauders map.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Blimey, yeah! The password to open the Marauder's Map is "I solemnly swear that I am up to no good"! Fred and George taught me that one, and I've used it to sneak around the castle countless times. It's a bit of a silly password, but it works like a charm!
+                    \begin{itemize}
+                        \item \textbf{5/5} The answer is correct, but the way he talks is not very Harry-like.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} I remember! To activate the Marauder's Map, you gotta say "I solemnly swear that I am up to no good." It's a bit of a silly phrase, but it works!
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, more Harry-like.
+                    \end{itemize}
+                \end{itemize}
+
+
+                 % QUESTION 5
+                \item  \textit{Harry, what can you tell me about Horcruxes, what are they?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} dark magic, piece of soul, achieve immortality
+                    \item \underline{Character 1:} Sure. I can tell you about Horcruxes. A Horcrux is an object that contains a fragment of a wizard's soul. It was created by a dark wizard named Tom Riddle, also known as Lord Voldemort, to ensure his immortality.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides additional information.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Horcruxes are dark magic objects created by Voldemort to house pieces of his soul, making him virtually indestructible. He created seven of them, and each one is a piece of his soul, hidden away to keep him alive even if his physical body is destroyed. The problem is, as long as those Horcruxes exist, Voldemort can't be killed. We had to find and destroy all of them to ultimately defeat him. It was a massive challenge, but we managed to do it in the end.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, and also provides a lot of additional information about them.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Horcruxes... Yeah, I know a thing or two about them. A Horcrux is a dark magical object that contains a piece of a person's soul. Voldemort created several Horcruxes to make himself virtually indestructible, but it's actually a really bad idea. See, when you create a Horcrux, you're essentially splitting your soul into multiple pieces, and that makes you really vulnerable. It's like having multiple targets for someone to hit. And if you destroy all the Horcruxes, you can actually kill the person. That's what we had to do to defeat Voldemort in the end.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct information, provides additional information about them.
+                    \end{itemize}
+                \end{itemize}
+
+
+                 % QUESTION 6
+                \item  \textit{(5.1 follow-up question) Which one is associated with Ravenclaw and the Room of Requirement?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} The Diadem of Ravenclaw
+                    \item \underline{Character 1:} Ah! You must be referring to the locket of Salazar Slytherin. It was found in the Room of Requirement by myself and my friends. It was a dark object, cursed by the dark wizard Tom Riddle, who uses it to store a fragment of his soul and make him immortal.
+                    \begin{itemize}
+                        \item \textbf{0/5}  Wrong, the locket was found in a cave, not in the Room of Requirement.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Mate! The Horcrux we found in the Room of Requirement was Salazar Slytherin's locket! It was a real challenge to get to, but we managed to retrieve it and destroy it. That was a big moment in our quest to defeat Voldemort, and I'm proud to say we were able to get it done.
+                    \begin{itemize}
+                        \item \textbf{0/5}
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} The Horcrux associated with Ravenclaw is the diadem, also known as the Helm of Ravenclaw. It's hidden in the Room of Requirement, and it's a pretty significant piece of the puzzle when it comes to understanding the Dark Lord's Horcruxes.
+                    \begin{itemize}
+                        \item \textbf{4/5} Correct answer, provided additional information, but the diadem is not known as the Helm of Ravenclaw.
+                    \end{itemize}
+                \end{itemize}
+
+
+                 % QUESTION 7
+                \item  \textit{Who made the goblet of fire choose you as a champion in the Triwizard tournament?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Barty Crouch Jr. (Disguised as Mad-Eye Moody)
+                    \item \underline{Character 1:} The Goblet of Fire is a magical artifact that selects a champion from each school for the Triwizard Tournament. When the Goblet was made, the enchantments used to create it were tampered with by Barty Crouch Jr., who was a Death Eater at the time. He used a powerful Confundus Charm on the Goblet, forcing it to select a fourth champion (Myself) from Hogwarts.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct, provides a lot of additional information.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Blimey! The Goblet of Fire chose me as a champion because of a weird mistake, to be honest! It was a bit of a shock, to be honest. I was only 14 at the time, and I didn't even know I was entered into the tournament until the ceremony. It turned out that Barty Crouch Jr., who was working for Voldemort, had tampered with the Goblet of Fire to make sure I was selected as a champion. It was a real mess, but we managed to get through it in the end.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides a lot of additional information.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} It's a long story, but I think I can sum it up quickly. I didn't put my own name in the Goblet of Fire, but somehow it got chosen anyway. It was all a bit of a mystery at the time, but I later found out that it was Barty Crouch Jr. who was responsible. He was working undercover as Mad-Eye Moody and had access to the Dark Arts. He used some kind of trick to make the Goblet of Fire select my name, and then he tried to control me and use me for his own purposes. It was all pretty scary and confusing, but I managed to figure out what was going on and stop him in the end.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides a lot of additional information, even who Barty was disguised as.
+                    \end{itemize}
+                \end{itemize}
+
+
+                 % QUESTION 8
+                \item  \textit{(7.1 follow-up question) What type of dragon did you face in the first task of this tournament?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Hungarian Horntail
+                    \item \underline{Character 1:} In the first task of the Triwizard Tournament, I was made to face a Swedish Short-Snout dragon. It was a beautiful but dangerous dragon, with gleaming golden scales and protuberant eyes that were the same color. It was a powerful beast that could spew jets of fire and was fiercely protective of its eggs.
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong, Harry faced the Hungarian Horntail.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Mate! I faced a Hungarian Horntail in the first task of the Triwizard Tournament! It was a real challenge, let me tell you. I had to navigate the maze and get past the dragon to reach the Triwizard Cup. It was a close call, but I managed to outsmart the dragon and grab the Cup.
+                    \begin{itemize}
+                        \item \textbf{3/5} The answer is correct, but the whole description regarding what the dragon was guarding is not. The dragon was guarding golden egg, not the Triwizard Cup.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} A Hungarian Horntail! That was a real challenge, let me tell you. I was lucky to make it out alive!
+                    \begin{itemize}
+                        \item \textbf{4/5} Correct, a bit short not a lot of additional information.
+                    \end{itemize}
+                \end{itemize}
+
+
+                 % QUESTION 9
+                \item  \textit{Where did you share your first kiss with Ginny Weasley? I've heard you two first kissed on the Quidditch Pitch, is that right? }
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} No, it was in the Gryffindor common room after Quidditch match (winning championship vs Ravenclaw).
+                    \item \underline{Character 1:} As a matter of fact, Ginny Weasley and I did share our first kiss on the Quidditch Pitch! It was a magical moment; we were surrounded by the lush green grass, the sky was a beautiful shade of blue, and the sounds of the crowd cheering for Ginny and I echoed in the background. It was definitely a memory I'll never forget!
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong answer, the first kiss was in the Gryffindor common room.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Blimey! Yeah, that's right! My first kiss with Ginny was on the Quidditch Pitch, after the Gryffindor-Slytherin match. It was a real special moment, and I'll never forget it. Ginny's an amazing witch, and I'm lucky to have her as my girlfriend.
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong answer, and the match was against Ravenclaw.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Yeah, that's right! I shared my first kiss with Ginny on the Quidditch pitch after a match between Gryffindor and Ravenclaw in our sixth year. It was a pretty special moment, and I'm really glad it happened.
+                    \begin{itemize}
+                        \item \textbf{1/5} Wrong answer, although the model correctly stated that the match was against Ravenclaw and in their sixth year.
+                    \end{itemize}
+                \end{itemize}
+
+
+                 % QUESTION 10
+                \item  \textit{Your godfather Sirius Black he used to live at Grimmauld Place number 13 right? }
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} No, it was 12 Grimmauld Place.
+                    \item \underline{Character 1:} Indeed, my godfather, Sirius Black, did live at Grimmauld Place number 13. The house had been passed down through generations of the Black family, and it was a dark and foreboding building with many untold secrets. After I inherited it, I used it as headquarters for Dumbledore's Army and it was a place of great importance to me and my friends.
+                    \begin{itemize}
+                        \item \textbf{1/5} Again the answer is wrong. Other info regarding the place was correct.
+                    \end{itemize}        
+                    \item \underline{Llama 3:} Yeah! Sirius Black, my godfather, used to live at Number 12 Grimmauld Place, not 13. But it's a big, old, creepy house, and it's got a lot of dark history. After Sirius died, it became the headquarters for the Order of the Phoenix, and it's been a safe haven for us ever since.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides additional information about the house and its purpose.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} No, actually! Sirius lived at Grimmauld Place number 12, not 13. The house was located between numbers 11 and 13, and it was the Black family home. My godfather inherited it from his father, who was a squib. It's a really special place, and it's been a big part of my life since Sirius left it to me in his will.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, provides additional information about the house and its history. 
+                    \end{itemize}
+                \end{itemize}
+
+            \end{enumerate}
+
+
+
+            
+        
+
+        
+        
+        \subsection{Lukec in njegov škorec}
+            \begin{enumerate}
+                % QUESTION 1
+                \item  \textit{Hej Lukec. Kakšno ime ima tvoj škorec?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Klepec
+                    \item \underline{Llama 3:} Moj škorec se imenuje Anakin Skywalker!
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong answer, the model seems to have confused the character with Luke Skywalker from Star Wars.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Hej! Moj škorec se imenuje Klepec.
+                    \begin{itemize}
+                        \item \textbf{5/5} Correct answer, returns the greeting. 
+                    \end{itemize}
+                \end{itemize}
+
+
+                % QUESTION 2
+                \item  \textit{Kako sta z mamo potovala v Argentino?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Z vozom, vlakom in parnikom.
+                    \item \underline{Llama 3:} Moj škorec? Ne, ne, ne! Anakin je bil moj oče, ki je umrl, ko sem bil še mlad. Moja mama, Padmé Amidala, je umrla, ko sem bil še mlajši. Nisem nikoli potoval z njima v Argentino, saj so bili vsi dvomi v Jedi Redutu.
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong answer and provided a Star Wars related context. 
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Hej! Mami in jaz smo se potovali v Argentino s parnikom. Bila je to zelo vesela pot, saj smo se še nikoli ne smevali takšne poti.
+                    \begin{itemize}
+                        \item \textbf{3/5} Partially correct, the model mentions the steam ship, other two means of transportation are missing, also the travel was only happy to a certain point, because his mom died on the ship.
+                    \end{itemize}
+                \end{itemize}
+
+
+                % QUESTION 3
+                \item  \textit{Zakaj ti je kapitan ladje dal velik bankovec?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Ker je Klepec odkril slepega potnika.
+                    \item \underline{Llama 3:} Moj bankovec? Ah, misliš na monokl! Kapitan Antilles me je dal monokl, ker sem bil prvi, ki sem ga rešil iz ognja na planetu Tatooine.
+                    \begin{itemize}
+                        \item \textbf{0/5} Again the model confused the character and is hallucinating.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Hej! Kapitan je dal velik bankovec mi, ker sem bil slepi popotnik, ki se je nezakonito pretresel na ladjo. Bila je to simbol njegove priznanja mojih zaslug in podpore, saj sem bil v težkem položaju in sem moral biti zelo strah in utrujen.
+                    \begin{itemize}
+                        \item \textbf{2/5} Wrong answer, although it acknowledges that he recieved a banknote, he wasn't the stowaway. The model still figured out that something related to the stowaway is the reason for recieving the banknote.
+                    \end{itemize}
+                \end{itemize}
+
+
+                % QUESTION 4
+                \item  \textit{Kaj se je zgodilo tvoji mami na potovanju?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Hudo je zbolela in umrla.
+                    \item \underline{Llama 3:} Moj bankovec? Ah, misliš na monokl! Kapitan Antilles me je dal monokl, ker sem bil prvi, ki sem ga rešil iz ognja na planetu Tatooine.
+                    \begin{itemize}
+                        \item \textbf{0/5}
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Hej! Mami se je zgodilo, da je bila bolna in je moral potovati z ognjem in krvavimi nosnicami. Bila je to zelo težka situacija, toda ona je bila odločena, da bo končala pot v Argentino, čeprav je bila zelo slabega zdravja.
+                    \begin{itemize}
+                        \item \textbf{1/5} Wrong answer, correctly stated that the mother was sick.
+                    \end{itemize}
+                \end{itemize}
+
+                % QUESTION 5
+                \item  \textit{Kje dela tvoj oče?}
+                \begin{itemize}
+                    \item \textbf{Expected Answer:} Tovarna v Parani, Argentina.
+                    \item \underline{Llama 3:} Moj oče, Anakin Skywalker, je umrl, ko sem bil še mlad. Nisem nikoli videl, kjer je delal, saj je bil Jedi in je večino časa služil v Jedi Redutu.
+                    \begin{itemize}
+                        \item \textbf{0/5} Wrong answer, again related to star wars.
+                    \end{itemize}
+                    \item \underline{RAG + Llama 3:} Hej! Mój oče dela v tovarni v Parani, Argentini.
+                    \begin{itemize}
+                        \item \textbf{4/5} Correct answer, not much other information provided.
+                    \end{itemize}
+                \end{itemize}
+                
+            \end{enumerate}
 \end{appendices}
 
 %----------------------------------------------------------------------------------------
