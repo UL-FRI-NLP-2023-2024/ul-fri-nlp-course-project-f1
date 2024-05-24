@@ -2,9 +2,9 @@ from models.utils.ModelVersion import LLAMA_3_8B
 
 from datasets import load_dataset
 import transformers
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, pipeline
 from trl import SFTTrainer
-from peft import LoraConfig, get_peft_model
+from peft import LoraConfig, get_peft_model, PeftModel
 import os
 import torch
 from functools import partial
@@ -98,7 +98,7 @@ class HPLora:
         self.original_model = AutoModelForCausalLM.from_pretrained(
             self.model_version,
             torch_dtype=torch.bfloat16,
-            device_map="cuda",
+            device_map="auto",
         )
         if verbose:
             print("Finished preparing the origina model.")
@@ -113,8 +113,8 @@ class HPLora:
 
     def prepare_lora_config(self):
         self.config = LoraConfig(
-            r=32,  # Rank
-            lora_alpha=16,
+            r=16,  # Rank
+            lora_alpha=8,
             target_modules=["q_proj", "k_proj", "v_proj", "dense"],
             bias="none",
             lora_dropout=0.05,  # Conventional
@@ -186,3 +186,60 @@ class HPLora:
         self.peft_trainer.train()
         # Save the model
         self.peft_model.save_pretrained(f"models/{self.fine_tuned_model_directory}-final")
+
+class HPLoraLLM:
+    def __init__(self, peft_path):
+        self.original_model = LLAMA_3_8B
+        self.peft_model = peft_path
+
+    def prepare_model(self, original_device="cuda", peft_device="cuda"):
+        self.base_model = AutoModelForCausalLM.from_pretrained(self.original_model, device_map=original_device)
+        self.merged_model = PeftModel.from_pretrained(self.base_model, self.peft_model, device_map=peft_device)
+
+    def prepare_tokenizer(self):
+        self.tokenizer = AutoTokenizer.from_pretrained(self.original_model, padding_side="left")
+        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+
+    def load_model(self, original_device="cuda", peft_device="cuda"):
+        self.prepare_model(original_device=original_device, peft_device=peft_device)
+        self.prepare_tokenizer()
+
+    def prepare_prompt(self, question, has_context=False):
+        if has_context:
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are Harry Potter from the Harry Potter universe who always responds to the Question as Harry Potter including their personality. Please do not make these answers too long and make sure a chat can happen! Make sure to use the Context information to formalize the best and most accurate response possible.",
+                },
+                {"role": "user", "content": question},
+            ]
+        else:
+            messages = [
+                {
+                    "role": "system",
+                    "content": "You are Harry Potter from the Harry Potter universe who always responds as Harry Potter including their personality. Please do not make these answers too long and make sure a chat can happen!",
+                },
+                {"role": "user", "content": question},
+            ]
+        return self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+
+    def query_model(self, question):
+        pipe = pipeline(
+            "text-generation",
+            model=self.merged_model,
+            tokenizer=self.tokenizer,
+        )
+
+        prompt = self.prepare_prompt(question, has_context=False)
+
+        terminators = [self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")]
+
+        outputs = pipe(
+            prompt,
+            max_new_tokens=256,
+            eos_token_id=terminators,
+            do_sample=True,
+            temperature=0.6,
+            top_p=0.9,
+        )
+        return outputs[0]["generated_text"][len(prompt) :]

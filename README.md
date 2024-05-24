@@ -362,24 +362,55 @@ This script can be run with the following command:
 make hp_lora
 ```
 
+#### Fine-Tuned LLM
+
+We have prepared a script for running the fine-tuned LLM in `src/hp_lora_llm.py`.
+
+This script can be run with the following command:
+```bash
+make hp_lora_llm
+```
+
 ### Implementation Details
 
 The first step is initializing our LoRA trainer, which is achieved by the following command:
 ```python
 from models.lora import HPLora
 hp_lora = HPLora(
-    fine_tuned_model_directory="lora-tuned-model"
+    fine_tuned_model_directory="peft"
 )
 ```
 
 Documentation:
 
 ```python
-fine_tuned_model_directory: string -> name of the folder inside `models` folder where the fine-tuned adapter checkpoints are saved. The final adapters are saved in the folder `fine_tuned_model_directory-final`.
+fine_tuned_model_directory: string -> name of the folder inside `models` folder where the fine-tuned adapter checkpoints are saved. The final adapters are saved in the folder `peft-final`.
 ```
 
 Once the LoRA trainer is initialized we can begin the fine-tuning process by calling:
 
 ```python
 hp_lora.fine_tune_model(verbose=True)
+```
+
+After the training is complete we can initialize the LoRA fine-tuned LLM, which is achieved by the following code:
+```python
+hp_lora_llm = HPLoraLLM(peft_path="models/peft-final")
+```
+
+We then load the models with:
+```python
+hp_lora_llm.load_model(original_device="cuda:0", peft_device="cuda:1")
+```
+
+And finally we can query the model with:
+```python
+response = hp_lora_llm.query_model(question)
+```
+
+Documentation:
+```python
+peft_path: string -> name of the folder inside `models` where the final fine-tuned adapters are saved.
+original_device: string -> device map for where to load the original model
+peft_device: string -> device map for where to lead the fine-tuned model
 ```

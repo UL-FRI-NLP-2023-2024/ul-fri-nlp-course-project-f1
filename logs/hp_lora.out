@@ -1,6 +1,6 @@
 Reading the datasets...
-Train Example: {'scene': '“Up! Get up! Now!”Harry woke with a start. His aunt rapped on the door again.“Up!” she screeched. Harry heard her walking toward the kitchen and then the sound of the frying pan being put on the stove. He rolled onto his back and tried to remember the dream he had been having. It had been a good one. There had been a flying motorcycle in it. He had a funny feeling he’d had the same dream before.His aunt was back outside the door.“Are you up yet?” she demanded.“Nearly,” said Harry.“Well, get a move on, I want you to look after the bacon. And don’t you dare let it burn, I want everything perfect on Duddy’s birthday.”Harry groaned.“What did you say?” his aunt snapped through the door.“Nothing, nothing . . .”', 'id': 'Session-1', 'harry_response': 'Nearly,', 'dialogue': 'Petunia: Up! Get up! Now! Up! Up! Are you up yet?'}
-Eval Example: {'scene': "Mrs. Figg, the Dursleys' usual babysitter for Harry, has broken her leg and can no longer take care of him. The Dursleys consider leaving Harry at home alone, taking him to the zoo and leaving him in the car, or calling Aunt Marge, who hates Harry. Dudley's friend Piers and his mother arrive, and the group goes to the zoo, with Uncle Vernon warning Harry not to cause any trouble or he'll be locked in the cupboard until Christmas.", 'id': 'Session-1', 'harry_response': "I know, I will obediently obedient, and I won't cause you trouble.", 'dialogue': 'Petunia: Bad news, Vernon, Mrs. Figg’s broken her leg. She can’t take him. Now what?Vernon: We could phone Marge,Petunia: Don’t be silly, Vernon, she hates the boy.Vernon: What about what’s-her-name, your friend — Yvonne?Petunia: On vacation in Majorca,Harry: You could just leave me here,Petunia: And come back and find the house in ruins?Harry: I won’t blow up the house,Petunia: I suppose we could take him to the zoo,Vernon: That car’s new, he’s not sitting in it alone. . . .Petunia: Dinky Duddydums, don’t cry, Mummy won’t let him spoil your special day! Oh, good Lord, they’re here!Vernon: I’m warning you, I’m warning you now, boy — any funny business, anything at all — and you’ll be in that cupboard from now until Christmas.'}
+Train Example: {'id': 'Session-1', 'harry_response': 'Nearly,', 'scene': '“Up! Get up! Now!”Harry woke with a start. His aunt rapped on the door again.“Up!” she screeched. Harry heard her walking toward the kitchen and then the sound of the frying pan being put on the stove. He rolled onto his back and tried to remember the dream he had been having. It had been a good one. There had been a flying motorcycle in it. He had a funny feeling he’d had the same dream before.His aunt was back outside the door.“Are you up yet?” she demanded.“Nearly,” said Harry.“Well, get a move on, I want you to look after the bacon. And don’t you dare let it burn, I want everything perfect on Duddy’s birthday.”Harry groaned.“What did you say?” his aunt snapped through the door.“Nothing, nothing . . .”', 'dialogue': 'Petunia: Up! Get up! Now! Up! Up! Are you up yet?'}
+Eval Example: {'id': 'Session-1', 'harry_response': "I know, I will obediently obedient, and I won't cause you trouble.", 'scene': "Mrs. Figg, the Dursleys' usual babysitter for Harry, has broken her leg and can no longer take care of him. The Dursleys consider leaving Harry at home alone, taking him to the zoo and leaving him in the car, or calling Aunt Marge, who hates Harry. Dudley's friend Piers and his mother arrive, and the group goes to the zoo, with Uncle Vernon warning Harry not to cause any trouble or he'll be locked in the cupboard until Christmas.", 'dialogue': 'Petunia: Bad news, Vernon, Mrs. Figg’s broken her leg. She can’t take him. Now what?Vernon: We could phone Marge,Petunia: Don’t be silly, Vernon, she hates the boy.Vernon: What about what’s-her-name, your friend — Yvonne?Petunia: On vacation in Majorca,Harry: You could just leave me here,Petunia: And come back and find the house in ruins?Harry: I won’t blow up the house,Petunia: I suppose we could take him to the zoo,Vernon: That car’s new, he’s not sitting in it alone. . . .Petunia: Dinky Duddydums, don’t cry, Mummy won’t let him spoil your special day! Oh, good Lord, they’re here!Vernon: I’m warning you, I’m warning you now, boy — any funny business, anything at all — and you’ll be in that cupboard from now until Christmas.'}
 Preparing the original model...
 Finished preparing the origina model.
 Preparing the tokenizer...
@@ -8,4 +8,85 @@ Finished preparing the tokenizer.
 Found max lenth: 8192
 Preprocessing dataset...
 Preprocessing dataset...
-trainable params: 18,874,368 || all params: 8,049,135,616 || trainable%: 0.23448937749889193
+trainable params: 9,437,184 || all params: 8,039,698,432 || trainable%: 0.11738231327729483
+{'loss': 2.1525, 'grad_norm': 0.7734375, 'learning_rate': 0.0001951951951951952, 'epoch': 0.03}
+{'eval_loss': 2.383828639984131, 'eval_runtime': 138.7787, 'eval_samples_per_second': 0.85, 'eval_steps_per_second': 0.108, 'epoch': 0.03}
+{'loss': 1.7994, 'grad_norm': 1.9765625, 'learning_rate': 0.0001901901901901902, 'epoch': 0.06}
+{'eval_loss': 1.962652325630188, 'eval_runtime': 138.3189, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.06}
+{'loss': 1.8069, 'grad_norm': 0.984375, 'learning_rate': 0.0001851851851851852, 'epoch': 0.09}
+{'eval_loss': 1.9400432109832764, 'eval_runtime': 138.3456, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.09}
+{'loss': 1.6702, 'grad_norm': 1.5, 'learning_rate': 0.00018018018018018018, 'epoch': 0.12}
+{'eval_loss': 1.9280146360397339, 'eval_runtime': 138.3621, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.12}
+{'loss': 1.7677, 'grad_norm': 0.6328125, 'learning_rate': 0.0001751751751751752, 'epoch': 0.15}
+{'eval_loss': 1.9210020303726196, 'eval_runtime': 138.308, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.15}
+{'loss': 1.5674, 'grad_norm': 1.734375, 'learning_rate': 0.0001701701701701702, 'epoch': 0.18}
+{'eval_loss': 1.9221373796463013, 'eval_runtime': 138.4195, 'eval_samples_per_second': 0.852, 'eval_steps_per_second': 0.108, 'epoch': 0.18}
+{'loss': 1.7469, 'grad_norm': 0.9765625, 'learning_rate': 0.00016516516516516518, 'epoch': 0.21}
+{'eval_loss': 1.904496669769287, 'eval_runtime': 138.3129, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.21}
+{'loss': 1.5801, 'grad_norm': 1.0859375, 'learning_rate': 0.00016016016016016018, 'epoch': 0.25}
+{'eval_loss': 1.9122766256332397, 'eval_runtime': 138.4248, 'eval_samples_per_second': 0.852, 'eval_steps_per_second': 0.108, 'epoch': 0.25}
+{'loss': 1.7784, 'grad_norm': 0.8046875, 'learning_rate': 0.00015515515515515516, 'epoch': 0.28}
+{'eval_loss': 1.9066462516784668, 'eval_runtime': 138.2658, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.28}
+{'loss': 1.5044, 'grad_norm': 1.3671875, 'learning_rate': 0.00015015015015015014, 'epoch': 0.31}
+{'eval_loss': 1.9254145622253418, 'eval_runtime': 138.361, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.31}
+{'loss': 1.7361, 'grad_norm': 0.62890625, 'learning_rate': 0.00014514514514514515, 'epoch': 0.34}
+{'eval_loss': 1.8990298509597778, 'eval_runtime': 138.3054, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.34}
+{'loss': 1.573, 'grad_norm': 1.34375, 'learning_rate': 0.00014014014014014013, 'epoch': 0.37}
+{'eval_loss': 1.9024090766906738, 'eval_runtime': 138.4021, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.37}
+{'loss': 1.7092, 'grad_norm': 0.75390625, 'learning_rate': 0.00013513513513513514, 'epoch': 0.4}
+{'eval_loss': 1.9035576581954956, 'eval_runtime': 138.3456, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.4}
+{'loss': 1.5535, 'grad_norm': 1.15625, 'learning_rate': 0.00013013013013013014, 'epoch': 0.43}
+{'eval_loss': 1.9000988006591797, 'eval_runtime': 138.4008, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.43}
+{'loss': 1.6711, 'grad_norm': 0.78125, 'learning_rate': 0.00012512512512512512, 'epoch': 0.46}
+{'eval_loss': 1.887440800666809, 'eval_runtime': 138.3403, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.46}
+{'loss': 1.5977, 'grad_norm': 1.34375, 'learning_rate': 0.00012012012012012013, 'epoch': 0.49}
+{'eval_loss': 1.8935980796813965, 'eval_runtime': 138.3142, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.49}
+{'loss': 1.7254, 'grad_norm': 0.74609375, 'learning_rate': 0.00011511511511511512, 'epoch': 0.52}
+{'eval_loss': 1.8963862657546997, 'eval_runtime': 138.3249, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.52}
+{'loss': 1.5195, 'grad_norm': 1.578125, 'learning_rate': 0.00011011011011011012, 'epoch': 0.55}
+{'eval_loss': 1.9040639400482178, 'eval_runtime': 138.3339, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.55}
+{'loss': 1.7004, 'grad_norm': 0.6796875, 'learning_rate': 0.00010510510510510511, 'epoch': 0.58}
+{'eval_loss': 1.8974614143371582, 'eval_runtime': 138.3751, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.58}
+{'loss': 1.5284, 'grad_norm': 1.125, 'learning_rate': 0.00010010010010010012, 'epoch': 0.61}
+{'eval_loss': 1.8952386379241943, 'eval_runtime': 138.3686, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.61}
+{'loss': 1.7077, 'grad_norm': 0.75, 'learning_rate': 9.50950950950951e-05, 'epoch': 0.64}
+{'eval_loss': 1.9021767377853394, 'eval_runtime': 138.3204, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.64}
+{'loss': 1.5634, 'grad_norm': 1.2265625, 'learning_rate': 9.009009009009009e-05, 'epoch': 0.67}
+{'eval_loss': 1.8951797485351562, 'eval_runtime': 138.3211, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.67}
+{'loss': 1.6494, 'grad_norm': 0.7578125, 'learning_rate': 8.50850850850851e-05, 'epoch': 0.71}
+{'eval_loss': 1.9032796621322632, 'eval_runtime': 138.3332, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.71}
+{'loss': 1.4603, 'grad_norm': 1.3515625, 'learning_rate': 8.008008008008009e-05, 'epoch': 0.74}
+{'eval_loss': 1.8915600776672363, 'eval_runtime': 138.3965, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.74}
+{'loss': 1.7197, 'grad_norm': 0.8515625, 'learning_rate': 7.507507507507507e-05, 'epoch': 0.77}
+{'eval_loss': 1.8883403539657593, 'eval_runtime': 138.3335, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.77}
+{'loss': 1.4873, 'grad_norm': 0.8046875, 'learning_rate': 7.007007007007007e-05, 'epoch': 0.8}
+{'eval_loss': 1.8928706645965576, 'eval_runtime': 138.3443, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.8}
+{'loss': 1.7413, 'grad_norm': 0.78515625, 'learning_rate': 6.506506506506507e-05, 'epoch': 0.83}
+{'eval_loss': 1.8862240314483643, 'eval_runtime': 138.3352, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.83}
+{'loss': 1.4793, 'grad_norm': 1.1796875, 'learning_rate': 6.0060060060060066e-05, 'epoch': 0.86}
+{'eval_loss': 1.8853377103805542, 'eval_runtime': 138.3637, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.86}
+{'loss': 1.7732, 'grad_norm': 0.69921875, 'learning_rate': 5.505505505505506e-05, 'epoch': 0.89}
+{'eval_loss': 1.8855587244033813, 'eval_runtime': 138.2997, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.89}
+{'loss': 1.5175, 'grad_norm': 0.87890625, 'learning_rate': 5.005005005005006e-05, 'epoch': 0.92}
+{'eval_loss': 1.8803212642669678, 'eval_runtime': 138.3509, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.92}
+{'loss': 1.6838, 'grad_norm': 0.70703125, 'learning_rate': 4.5045045045045046e-05, 'epoch': 0.95}
+{'eval_loss': 1.8829253911972046, 'eval_runtime': 138.3372, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 0.95}
+{'loss': 1.664, 'grad_norm': 1.265625, 'learning_rate': 4.0040040040040046e-05, 'epoch': 0.98}
+{'eval_loss': 1.8890222311019897, 'eval_runtime': 138.418, 'eval_samples_per_second': 0.852, 'eval_steps_per_second': 0.108, 'epoch': 0.98}
+{'loss': 1.6398, 'grad_norm': 0.5625, 'learning_rate': 3.503503503503503e-05, 'epoch': 1.01}
+{'eval_loss': 1.889514446258545, 'eval_runtime': 138.2843, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.01}
+{'loss': 1.6904, 'grad_norm': 0.96875, 'learning_rate': 3.0030030030030033e-05, 'epoch': 1.04}
+{'eval_loss': 1.8938034772872925, 'eval_runtime': 138.3656, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.04}
+{'loss': 1.5645, 'grad_norm': 0.515625, 'learning_rate': 2.502502502502503e-05, 'epoch': 1.07}
+{'eval_loss': 1.8958563804626465, 'eval_runtime': 138.2704, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.07}
+{'loss': 1.6701, 'grad_norm': 0.85546875, 'learning_rate': 2.0020020020020023e-05, 'epoch': 1.1}
+{'eval_loss': 1.8950121402740479, 'eval_runtime': 138.3206, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.1}
+{'loss': 1.523, 'grad_norm': 0.6328125, 'learning_rate': 1.5015015015015016e-05, 'epoch': 1.13}
+{'eval_loss': 1.8950988054275513, 'eval_runtime': 138.3521, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.13}
+{'loss': 1.609, 'grad_norm': 0.91796875, 'learning_rate': 1.0010010010010011e-05, 'epoch': 1.17}
+{'eval_loss': 1.8955334424972534, 'eval_runtime': 138.3493, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.17}
+{'loss': 1.4533, 'grad_norm': 0.59375, 'learning_rate': 5.005005005005006e-06, 'epoch': 1.2}
+{'eval_loss': 1.8957833051681519, 'eval_runtime': 138.4002, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.2}
+{'loss': 1.6143, 'grad_norm': 0.70703125, 'learning_rate': 0.0, 'epoch': 1.23}
+{'eval_loss': 1.8959187269210815, 'eval_runtime': 138.3854, 'eval_samples_per_second': 0.853, 'eval_steps_per_second': 0.108, 'epoch': 1.23}
+{'train_runtime': 11851.4467, 'train_samples_per_second': 0.084, 'train_steps_per_second': 0.084, 'train_loss': 1.6474887580871582, 'epoch': 1.23}

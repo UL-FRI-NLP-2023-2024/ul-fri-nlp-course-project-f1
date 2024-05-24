@@ -148,6 +148,7 @@ src/models/data/raw/*.pdf
 logs/
 models/faiss/
 models/peft-final/
+models/peft/
 models/peft-hp-dialogue-training/
 models/lukec/
 lukec_cache/

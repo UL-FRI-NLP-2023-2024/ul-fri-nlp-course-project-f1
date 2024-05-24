@@ -3,12 +3,12 @@ from models.rag import HPRag
 
 if __name__ == "__main__":
     # Question
-    question = "Kakšno znamenje imaš na glavi? Kdo ti ga je dal?"
+    question = "Hey Harry, I wonder what would you say is your favorite sport?"
     # Retrieval Augmented Generation
     hp_rag = HPRag(use_ensemble_retriever=True, verbose=True, device="cuda:0")
     # Get the context
     context = hp_rag.execute_query(question)
-    print(f"Context: {context}")
+    # print(f"Context: {context}")
     # Free up memory on GPU
     # del hp_rag
     # Large Language Model

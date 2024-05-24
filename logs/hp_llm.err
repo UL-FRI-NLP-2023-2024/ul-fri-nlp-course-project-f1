@@ -1,11 +1,4 @@
 INFO:    Setting 'NVIDIA_VISIBLE_DEVICES=all' to emulate legacy GPU binding.
 INFO:    Setting --writable-tmpfs (required by nvidia-container-cli)
-  0%|          | 0/7 [00:00<?, ?it/s] 14%|█▍        | 1/7 [00:33<03:22, 33.68s/it] 29%|██▊       | 2/7 [01:15<03:12, 38.53s/it] 43%|████▎     | 3/7 [01:34<01:58, 29.68s/it] 57%|█████▋    | 4/7 [01:54<01:17, 25.93s/it] 71%|███████▏  | 5/7 [01:55<00:33, 16.69s/it] 86%|████████▌ | 6/7 [02:01<00:13, 13.03s/it]100%|██████████| 7/7 [05:43<00:00, 81.43s/it]100%|██████████| 7/7 [05:43<00:00, 49.06s/it]
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:27<00:27, 27.24s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:39<00:00, 18.54s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:39<00:00, 19.85s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:08,  2.87s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:04<00:04,  2.43s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:07<00:02,  2.51s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  1.76s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  2.05s/it]
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Setting `pad_token_id` to `eos_token_id`:32000 for open-end generation.
-A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:23<01:10, 23.66s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:55<00:56, 28.30s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:25<00:29, 29.18s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:31<00:00, 20.12s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:31<00:00, 22.92s/it]
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
