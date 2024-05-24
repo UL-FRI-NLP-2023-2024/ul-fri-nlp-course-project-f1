@@ -230,10 +230,9 @@ Overall score of <ins>Llama 3</ins>:
 -  35/50
 
 Overall score of <ins>RAG + Llama 3</ins>:
-- **3.7/5**
--  37/50
+- **4.1/5**
+-  41/50
   
-
 
 
 # Lukec in njegov škorec
