@@ -1,2 +1,0 @@
-INFO:    Setting 'NVIDIA_VISIBLE_DEVICES=all' to emulate legacy GPU binding.
-INFO:    Setting --writable-tmpfs (required by nvidia-container-cli)

@@ -9,11 +9,11 @@ FILE_FAISS="faiss.zip"
 wget "$URL_CACHE" -O "$FILE_CACHE"
 wget "$URL_FAISS" -O "$FILE_FAISS"
 
-mkdir -p ./cache
-mkdir -p ./models/faiss
+mkdir -p .
+mkdir -p .
 
-unzip "$FILE_CACHE" -d ./cache
-unzip "$FILE_FAISS" -d ./models/faiss
+unzip "$FILE_CACHE" -d .
+unzip "$FILE_FAISS" -d .
 
 rm -f "$FILE_CACHE"
 rm -f "$FILE_FAISS"

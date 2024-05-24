@@ -88,8 +88,73 @@ There are 2 different Singularity Containers for this project:
 There are two ways of running scripts:
 - Directly via `make` command (Example: `make hp_rag`). To view all supported commands please continue reading this README or check `Makefile`
 - Initialize an interactive session by running `make interactive` and then running an interactive script inside Singularity Container while inside and interactive session(Example: `singularity exec --nv containers/container-rag.sif python src/hp_interactive_chatbot.py`)
+- Download cache data which we uploaded to external drive for quicker Peer Reviews by running `make download_cachw`. You can skip this step, but the first run will take noticably longer.
 
 Remember to run Makefile scripts from the root directory.
+
+## Peer Review
+
+This section provides a **step-by-step example** on running the Harry Potter chatbot in interactive mode. **Detailed descriptions, more usages and how to chat with Lukec character are shown in the following sections!**
+
+#### 1. **Download Cached Data**
+
+To save about an hour of setup time, pre-download cached data by running following command in the root directory:
+
+```bash
+make download_cache
+```
+
+You can check the status of the job with the following command. Usually, it takes about 40 seconds.
+
+```bash
+squeue --me
+```
+
+#### 2. **Build the Singularity Container**
+
+Build the necessary Singularity container:
+
+```bash
+make rag_container
+```
+
+#### 3. **Start an Interactive SLURM Session**
+
+Allocate resources and start an interactive session:
+
+```bash
+make interactive
+```
+Wait for the resources to be allocated, and then proceed when you see a prompt like [user@computing-node]$.
+
+#### 4. **Run the Harry Potter Chatbot**
+
+Choose and run one of the interactive chatbot scripts:
+
+* LLM Only Chatbot (Setup time 2 minutes):
+
+```bash
+singularity exec --nv containers/container-rag.sif python src/hp_interactive_chatbot.py
+```
+
+* RAG Assisted LLM Chatbot (Setup time 6 minutes):
+
+```bash
+singularity exec --nv containers/container-rag.sif python src/hp_interactive_rag_chatbot.py
+```
+
+#### 5. **Interact with the Chatbot**
+
+After initialization, you'll be prompted to input your questions. Interact as follows:
+```bash
+Q: <your question here>
+A: <model answer here>
+```
+Continue interacting as desired. Exit by closing the terminal or terminating the SLURM job when finished with:
+```bash
+exit
+```
+
 
 ## Retrieval Augmented Generation (RAG)
 
